@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	   <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-2 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li id="view"><a href="main">概览 <span class="sr-only">(current)</span></a></li>
             <li  id="manage"><a href="main/usermanage">用户管理</a></li>

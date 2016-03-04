@@ -1,5 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ page contentType="text/html; charset=UTF-8" deferredSyntaxAllowedAsLiteral="true"%>
+<%@page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page contentType="text/html; charset=UTF-8" deferredSyntaxAllowedAsLiteral="true"%>
 <%@taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib  prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<button  type="button"  class="btn btn-info glyphicon glyphicon-plus"   data-toggle="modal" data-target="#addUser">添加</button>
-	<table  class="table table-bordered table-hover">
+	<table  class="table table-bordered table-hover table-responsive">
       		<thead>
       		<tr>
 				<td  width="5%">#</td>      
