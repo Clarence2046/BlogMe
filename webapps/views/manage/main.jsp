@@ -32,7 +32,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}else if(cur =='view'){
 				$("#view").addClass("active");
 			}
-		})	;    
+			
+			
+			/* $("#useranage").click(function(){
+				$("#uu").attr("src","main/usermanage");
+			}); */
+			
+		})	;
+		
+		function chooseMe(url){
+			$("#uu").attr("src",url);
+		}
+		
+		function activeMe(me){
+			$(".active").removeClass("active");
+			$(me).addClass("active");
+			
+		}
     </script>
 
   </head>
@@ -55,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          <ul class="nav navbar-nav">
 	            <li ><a href="#">1</a></li>
 	            <li ><a href="#">2</a></li>
-	            <li ><a href="#">3</a></li>
+	            <li ><a href="home">返回前台</a></li>
 	            <li class="dropdown">
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
 	              <ul class="dropdown-menu">
@@ -87,8 +103,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <div class="row">
         <div class="col-sm-2 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li id="view"><a href="main">概览 <span class="sr-only">(current)</span></a></li>
-            <li  id="manage"><a href="main/usermanage">用户管理</a></li>
+            <li id="view"><a href="main">
+            	<span class="glyphicon glyphicon-bookmark"> 概览 <span class="sr-only">(current)</span></span>
+            	</a>
+            </li>
+            <li  id="manage" onclick="activeMe(this)">
+            <a data-toggle="collapse"   href="#userManage"  >
+            	<span class="glyphicon glyphicon-cog"> 管理</span>
+            </a>
+            <div id="userManage"   class="collapse">
+            	<div class="panel-body">
+            	<ul style="list-style-type: none;">
+            		<li> <a  href="javascript:void(0)" id="usermanage"  onclick="chooseMe('main/usermanage')"><span class="glyphicon glyphicon-user"></span>用户管理</a></li>
+            	 	<li> <a  href="javascript:void(0)" id="authmanage" onclick="chooseMe('main/authmanage')"><span class="glyphicon glyphicon-leaf"></span>权限管理</a> </li>
+            	</ul>
+            	 
+            	</div>
+            </div>
+            </li>
             <!-- <li><a href="#">Analytics</a></li>
             <li><a href="#">Export</a></li> -->
           </ul>
@@ -105,22 +137,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li><a href="">Another nav item</a></li>
           </ul> -->
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-        <c:if test="${current eq 'view' }">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="placeMe">
+		
+       <%--  <c:if test="${current eq 'view' }">
           <h5 class="page-header">预览</h5>
 
           <div class="row placeholders">
-            <!-- <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>Label</h4>
@@ -130,17 +152,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>Label</h4>
               <span class="text-muted">Something else</span>
-            </div> -->
-            区域一
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+              <h4>Label</h4>
+              <span class="text-muted">Something else</span>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="collapse" 
+			   data-target="#demo">
+			   简单的可折叠组件
+			</button>
+			
+			<div id="demo" class="collapse in">
+			  Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
+			  cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
+			  vice lomo.
+			</div>
             
           </div>
           <h5 class="sub-header">个人信息</h5>
           <div class="table-responsive">
           		区域二
           </div>
-        </c:if>
+        </c:if> --%>
+        <iframe id="uu" src="main/view"   style="width:100%; height:95%;"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes">
+				<%-- <jsp:include page="usermanage.jsp"></jsp:include> --%>
+		</iframe>
         <c:if  test="${current eq 'usermanage' }">
-					<jsp:include page="usermanage.jsp"></jsp:include>
         </c:if>
         </div>
       </div>

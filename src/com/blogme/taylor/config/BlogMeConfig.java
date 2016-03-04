@@ -1,5 +1,6 @@
 package com.blogme.taylor.config;
 
+import com.blogme.taylor.controller.BlogMeBlogController;
 import com.blogme.taylor.controller.BlogMeHomeController;
 import com.blogme.taylor.controller.BlogMeManageController;
 import com.blogme.taylor.controller.BlogMeTestController;
@@ -39,6 +40,7 @@ public class BlogMeConfig extends JFinalConfig {
 			me.add("/home", BlogMeHomeController.class,"views/blogme/");
 			me.add("/test", BlogMeTestController.class,"views/test/");
 			me.add("/main", BlogMeManageController.class,"views/manage/");
+			me.add("/blog", BlogMeBlogController.class,"views/blog/");
 	}
 
 	@Override
@@ -72,6 +74,7 @@ public class BlogMeConfig extends JFinalConfig {
 	@Override
 	public void configHandler(Handlers me) {
 		me.add(new UrlSkipHandler("/jsFiles", false));
+		me.add(new UrlSkipHandler("/images", false));
 	}
 
 }

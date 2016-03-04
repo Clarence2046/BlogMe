@@ -20,6 +20,13 @@ public class BlogMeManageController extends Controller {
 		getSession().setAttribute("current", "view");
 		render("main.jsp");
 	}
+	public void view() {
+		getSession().setAttribute("current", "view");
+		render("view.jsp");
+	}
+	public void authmanage() {
+		render("authmanage.jsp");
+	}
 
 	public void usermanage() {
 		// 查询出所有的用户
@@ -33,7 +40,7 @@ public class BlogMeManageController extends Controller {
 		setAttr("pages", res);
 		// 将当前访问的菜单路径放入session之中
 		getSession().setAttribute("current", "usermanage");
-		render("main.jsp");
+		render("usermanage.jsp");
 	}
 
 

@@ -31,25 +31,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   
-  		<h5 class="page-header">预览</h5>
+	<ol class="breadcrumb">
+	  <li><a href="javascript:void(0)">管理</a></li>
+	  <li class="active">用户管理</li>
+	</ol>
 
 	<div class="row placeholders">
-		<!-- <div class="col-xs-6 col-sm-3 placeholder">
-			 <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-			<span class="text-muted"> 
-			      开始时间:<input type="text" size="12"id="beginDate" class="Wdate"
-				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen',maxDate:'#F{$dp.$D(\'endDate\')||\'y%-M%-d%\'}'})">
-				<br /> 
-				结束时间:<input type="text" size="12" id="endDate" class="wdate"
-				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen',minDate:'#F{$dp.$D(\'beginDate\')}',maxDate:'y%-M%-d%'})">
-			</span>
-		</div> -->
 		<form action="main/usermanage?pageNum=${pages.pageNumber}"  class="form-inline" id="searchForm"  method="post">
 				用户名:<input  type="text"  class="form-control"  size="14"  name="username"  value="${old_username }">
-			    开始时间:<input type="text" size="12"id="beginDate" class="Wdate form-control"  name="beginDate"   value="${old_beginDate }"
+			    开始时间:<input type="text" size="12"id="beginDate" class="form-control"  name="beginDate"   value="${old_beginDate }"
 				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen',maxDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}'})">
-				结束时间:<input type="text" size="12" id="endDate" class="wdate form-control"    name="endDate"    value="${old_endDate }"
+				结束时间:<input type="text" size="12" id="endDate" class="form-control"    name="endDate"    value="${old_endDate }"
 				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen',minDate:'#F{$dp.$D(\'beginDate\')}',maxDate:'%y-%M-%d'})">
 				<input  type="submit"  class="btn"  value="查询">
 		</form>
@@ -149,22 +141,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										for ( var temp = 0; temp < data.list.length; temp++) {
 											var user = data.list[temp];
 											console.log(user.userId);
+											var username = (user.username==null?'':user.username);
+											var loginName = (user.loginName==null?'':user.loginName);
+											var email = (user.email==null?'':user.email);
+											var phone = (user.phone==null?'':user.phone);
+											var createTime = (user.createTime==null?'':user.createTime);
+											var updateTime = (user.updateTime==null?'':user.updateTime);
 											$("#contents").append("<tr>"
 																			+"<td>"+user.userId +"</td>"      
-																			+"<td>"+(user.username==null?'':user.username) +"</td> "
-																			+"<td>"+(user.loginName==null?'':user.loginName) +"</td> "
-																			+"<td>"+(user.email==null?'':user.email) +"</td> "     
-																			+"<td>"+(user.phone==null?'':user.phone)+"</td>  "    
-																			+"<td>"+(user.createTime==null?'':user.createTime)+"</td>"      
-																		    +"<td>"+(user.updateTime==null?'':user.updateTime) +"</td>"      
+																			+"<td>"+username+"</td> "
+																			+"<td>"+loginName +"</td> "
+																			+"<td>"+email +"</td> "     
+																			+"<td>"+phone+"</td>  "    
+																			+"<td>"+createTime+"</td>"      
+																		    +"<td>"+updateTime +"</td>"      
 																		    +"<td>"+(user.status==1?'正常':'冻结') +"</td>"      
 																			+"<td  align='center'>"
 																			+"<button  class='glyphicon glyphicon-trash btn btn-info'  style='padding: 1 5 ;' title='删除'></button> "  
-																			+"<button  class='glyphicon glyphicon-edit btn btn-info'  style='padding: 1 5 ;' title='编辑'  "
-																			+"onclick='showEdit("+user.userId +",'"+user.username+"','"+user.loginName +"' , '"+user.email+"' , '"+user.phone+"' ,"+user.userType+")'></button>"
-																			+"</td>      "
+																			+"<button id='user"+user.userId+"'  class='glyphicon glyphicon-edit btn btn-info'  style='padding: 1 5 ;' title='编辑'></button>"
+																			+"</td>"
 																			
 															      			+"</tr>");	
+											
+											$("#user"+user.userId+"").attr("onclick","showEdit('"+user.userId+"','"+username+"','"+loginName+"','"+email+"','"+phone+"','"+user.userType+"')");
 										};
 										//设置下一页
 										$("#next").text("");
@@ -266,9 +265,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	        <button type="button" class="btn btn-primary"  onclick="addUser()">添加</button>
 	      </div>
+	      
+	      <a class="close" data-dismiss="alert" href="#" aria-hidden="true">
+			   &times;
+			</a>
 	      <script type="text/javascript">
 				function addUser(){
+					if(confirm("确认添加？")){
 					$("#addUserForm").submit();					
+						
+					}
+					
 				}	      
 	      </script>
 	    </div>
