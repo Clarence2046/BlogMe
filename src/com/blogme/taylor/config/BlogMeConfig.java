@@ -5,6 +5,7 @@ import com.blogme.taylor.controller.BlogMeHomeController;
 import com.blogme.taylor.controller.BlogMeManageController;
 import com.blogme.taylor.controller.BlogMeTestController;
 import com.blogme.taylor.controller.BlogMeVisitController;
+import com.blogme.taylor.interceptor.AuthInterceptor;
 import com.blogme.taylor.model._MappingKit;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -68,7 +69,7 @@ public class BlogMeConfig extends JFinalConfig {
 
 	@Override
 	public void configInterceptor(Interceptors me) {
-
+			me.addGlobalActionInterceptor(new AuthInterceptor());
 	}
 
 	@Override

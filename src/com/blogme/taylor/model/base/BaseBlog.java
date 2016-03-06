@@ -65,4 +65,20 @@ public abstract class BaseBlog<M extends BaseBlog<M>> extends Model<M> implement
 		return get("views");
 	}
 
+	public void setContentWithNoHtml(java.lang.String contentWithNoHtml) {
+		set("contentWithNoHtml", contentWithNoHtml);
+	}
+
+	public java.lang.String getContentWithNoHtml() {
+		return get("contentWithNoHtml");
+	}
+
+	public void setStatus(java.lang.Integer status) {
+		set("status", status);
+	}
+
+	public java.lang.Integer getStatus() {
+		return get("status");
+	}
+
 }

@@ -62,20 +62,7 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="col placeholders">
 			<div class="col-xs-12 col-sm-3 placeholder">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="thumbnail" style="width: 65%">
-							<img src="images/lanyangyang.jpg" alt="通用的占位符缩略图">
-						</div>
-
-						<div class="caption">
-							<h4>${loginUser.username }</h4>
-							<p>像风一样无声无息。</p>
-							<p>积分:120 等级:3</p>
-						</div>
-
-					</div>
-				</div>
+				
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">最新文章</h3>
@@ -144,32 +131,7 @@
 
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">发布信息</h3>
-					</div>
-					<div class="panel-body">
-
-						<form action="blog/publishBlog" method="post">
-							<table class="table">
-								<tr>
-									<td><label class="text-primary">主题</label> <input
-										type="text" name="blog.blogTitle"></td>
-								</tr>
-								<tr>
-									<td><textarea name="content"
-											style="width: 98%; height: 200px; visibility: hidden;">KindEditor</textarea>
-									</td>
-								</tr>
-								<tr>
-									<td align="center"><input type="submit"
-										class="btn btn-primary" value="发布" /></td>
-								</tr>
-							</table>
-						</form>
-
-					</div>
-				</div>
+			
 			</div>
 
 		</div>

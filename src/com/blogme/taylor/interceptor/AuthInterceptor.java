@@ -3,6 +3,7 @@ package com.blogme.taylor.interceptor;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.blogme.taylor.util.Constants;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 
@@ -12,15 +13,22 @@ public class AuthInterceptor implements Interceptor{
 	public void intercept(Invocation inv) {
 			System.out.println("对访问路径"+inv.getActionKey()+"进行登陆拦截......");
 			
-			//查询当前用户具有的菜单权限
-			Map<String,String>  m = new HashMap<String,String>();
-			m.put("流光", "time");
-			m.put("关于", "about");
-			m.put("博客", "blog");
-			m.put("测试页面", "test");
-			m.put("后台管理", "main");
-			inv.getController().getSession().setAttribute("auths", m);
-			inv.invoke();
+			Object user = inv.getController().getSession().getAttribute(Constants.LOGIN_USER);
+			if(user==null){
+				inv.getController().redirect("/visitme");
+			}else{
+				//查询当前用户具有的菜单权限
+				Map<String,String>  m = new HashMap<String,String>();
+				m.put("流光", "time");
+				m.put("关于", "about");
+				m.put("博客", "blog");
+				m.put("我的博客", "blog?isMyBlog=true");
+				m.put("测试页面", "test");
+				m.put("后台管理", "main");
+				inv.getController().getSession().setAttribute("auths", m);
+				inv.invoke();
+			}
+			
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.blogme.taylor.model;
 
+import java.util.List;
+
 import com.blogme.taylor.model.base.BaseBlog;
 
 /**
@@ -8,4 +10,25 @@ import com.blogme.taylor.model.base.BaseBlog;
 @SuppressWarnings("serial")
 public class Blog extends BaseBlog<Blog> {
 	public static final Blog dao = new Blog();
+	
+	public String getUsername(){
+		return get("username");
+	};
+	public User getUser(){
+		return User.dao.findFirst("select * from c_user where userId="+get("userId"));
+	};
+	
+	public List<Comment> getComments(){
+		return Comment.dao.find("select * from c_comment where blogId="+get("blogId"));
+	};
+	
+	public static List<Blog>  getMyBlog(Integer userId,Boolean isMyBlog){
+		List<Blog> blogs;
+		if(isMyBlog){
+			blogs = Blog.dao.find("select *  from c_blog  where status=1 and userId=?",userId);
+		}else{
+			blogs = Blog.dao.find("select *  from c_blog  where status=1 ");
+		}
+		return blogs;
+	}
 }

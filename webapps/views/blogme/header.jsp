@@ -24,9 +24,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript"  src="jsFiles/bootstrap/js/bootstrap.js"></script>
     
   </head>
-  
-  <body>
-   <nav class="navbar navbar-default navbar-fixed-top">
+  <style>
+<!--
+.back{
+ background-image: url('images/background.jpg');
+}
+-->
+</style>
+  <body >
+   <nav class="navbar  navbar-fixed-top back" >
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -46,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <ul class="nav navbar-nav navbar-right">
             <li><a href="../navbar/">Default</a></li>
             <li><a href="../navbar-static-top/">Static top</a></li>
-            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+            <li ><a href="visitme/logout">退出 <span class="sr-only">(current)</span></a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

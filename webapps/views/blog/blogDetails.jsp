@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -39,37 +38,42 @@
 		editor = K.create('textarea[name="content"]', {
 			resizeType : 1,
 			allowPreviewEmoticons : false,
-			uploadJson:'views/blog/upload/upload_json.jsp',
-			fileManagerJson:'views/blog/upload/file_manager_json.jsp',
+			uploadJson : 'views/blog/upload/upload_json.jsp',
+			fileManagerJson : 'views/blog/upload/file_manager_json.jsp',
 			allowImageUpload : true,
-			allowFileManager:true
+			allowFileManager : true
 		});
 	});
 	
+	
 	$(document).ready(function(){
-		$("#listBlogContents img").attr("width","150px");
-		$("#listBlogContents img").attr("height","150px");
+		var width = parseInt($("#blogDetail img").css("width"));
+		
+		if(width>500){
+			$("#blogDetail img").attr("width","90%");
+		}
+		
 		
 		
 	});
-	
 </script>
 
 </head>
 
 <body style="background-image: url('images/background.jpg');">
 	<jsp:include page="../blogme/header.jsp"></jsp:include>
+
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="col placeholders">
 			<div class="col-xs-12 col-sm-3 placeholder">
-				<div class="panel panel-default">
+				<div class="panel ">
 					<div class="panel-body">
 						<div class="thumbnail" style="width: 65%">
 							<img src="images/lanyangyang.jpg" alt="通用的占位符缩略图">
 						</div>
 
 						<div class="caption">
-							<h4>${loginUser.username }</h4>
+							<h4>${theBlog.user.username }</h4>
 							<p>像风一样无声无息。</p>
 							<p>积分:120 等级:3</p>
 						</div>
@@ -82,7 +86,7 @@
 					</div>
 					<div class="panel-body">
 						<ul class="list-group" style="list-style-type: none;">
-							<c:forEach  items="${blogs }"  var="blog" end="4">
+							<c:forEach items="${blogs }" var="blog" end="4">
 								<li><a href="blog/blogDetail?blogId=${blog.blogId }"> ${blog.blogTitle }</a></li>
 							</c:forEach>
 							<!-- <li><a href="javascript:void(0)"> WdatePicker</a></li>
@@ -97,7 +101,7 @@
 				</div> -->
 					<div class="panel-body">这是一个基本的面板</div>
 				</div>
-				<div class="panel ">
+				<div class="panel panel-default">
 					<!-- <div class="panel-heading">
 					<h3 class="panel-title">面板标题</h3>
 				</div> -->
@@ -108,64 +112,90 @@
 			<div class="col-xs-12 col-sm-8 placeholder">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">列表展示</h3>
+						<h3 class="panel-title">${theBlog.blogTitle }</h3>
 					</div>
 					<div class="panel-body">
-						<c:forEach items="${blogs }" var="blog">
-							<span >
-							 <label style="width: 95%">题目：<a href="blog/blogDetail?blogId=${blog.blogId }">${blog.blogTitle }</a>
-							 	 
-							 	<a href="blog/deleteBlog?blogId=${blog.blogId }"> <span class="glyphicon glyphicon-trash" style="float: right;"></span>
-							 	</a>
-							 	 <br/>
-							 
-								作者：<a href="javascript:void(0)">${blog.user.username }</a>
-								时间：<fmt:formatDate value="${blog.publishTime }" type="date" pattern="yyyy-MM-dd HH:mm:ss" />
-							 </label><br/>内容：
-							 	<%-- ${fn:substring(blog.blogContent,0,255) } --%>
-							</span>
-							<span id="listBlogContents">
-							 	<%-- ${blog.blogContent } --%>
-							 	<%-- ${blog.contentWithNoHtml } --%>
-							 	<a href="blog/blogDetail?blogId=${blog.blogId }">
-							 	<c:choose>
-							 		<c:when test="${ empty blog.contentWithNoHtml }">
-							 		${blog.blogContent }
-							 		</c:when>
-							 		<c:otherwise>
-									 	${fn:substring(blog.contentWithNoHtml,0,255) }...
-							 		</c:otherwise>
-							 	</c:choose>
-							 	</a>
-							</span>
-							<hr/>
-						</c:forEach>
+						<span> <label>
+								作者：<a href="javascript:void(0)">${theBlog.user.username }</a> 时间：<fmt:formatDate
+									value="${theBlog.publishTime }" type="date"
+									pattern="yyyy-MM-dd HH:mm:ss" />
+								查看：${theBlog.views+1 }次
+						</label><br /> 
+						<span id="blogDetail">
+						${theBlog.blogContent }
+						</span>
+						</span>
+						<hr />
 
 
 					</div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">发布信息</h3>
+						<h3 class="panel-title">评论</h3>
+					</div>
+					<div class="panel-body">
+						<span id="commentArea">
+						
+							<c:forEach items="${theBlog.comments }" var="comment">
+							<span><a href="javascript:void(0)">${comment.user.username }</a>
+							 <fmt:formatDate value="${comment.commentTime }"  type="date" pattern="yyyy-MM-dd HH:mm:ss"/> 
+							 <br/>
+							 ${comment.commentContent }
+							</span><hr/>
+							</c:forEach>
+						</span>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">发表评论</h3>
 					</div>
 					<div class="panel-body">
 
-						<form action="blog/publishBlog" method="post">
+						<form action="blog/commentBlog" method="post">
+							<input type="hidden"  name="comment.blogId" value="${theBlog.blogId }"/>
 							<table class="table">
-								<tr>
-									<td><label class="text-primary">主题</label> <input
-										type="text" name="blog.blogTitle"></td>
-								</tr>
 								<tr>
 									<td><textarea name="content"
 											style="width: 98%; height: 200px; visibility: hidden;">KindEditor</textarea>
 									</td>
 								</tr>
 								<tr>
-									<td align="center"><input type="submit"
-										class="btn btn-primary" value="发布" /></td>
+									<td align="center"><input type="button"  onclick="ajaxCommentBlog()"
+										class="btn btn-primary" value="评论" /></td>
 								</tr>
+								
 							</table>
+							<script type="text/javascript">
+							<!--
+								function ajaxCommentBlog(){
+								
+								//alert(editor.html());
+								$.ajax({
+									url:'blog/commentBlog',
+									type:'POST',
+									data:{'blogId':${theBlog.blogId},'content':editor.html()},
+									dataType:"json",
+									success:  function(data){
+										
+										var appentComment = '<span><a href="javascript:void(0)">'+${loginUser.username}+'</a>'
+											+' <fmt:formatDate value="<\%=new Date() %>"  type="date" pattern="yyyy-MM-dd HH:mm:ss"/> '
+										 +'<br/>'+editor.html()+'</span><hr/>';
+										
+										
+										$("#commentArea").append(appentComment);
+										
+									},
+									error:function(){
+										alert("error");
+									}
+								}); 
+							
+							
+							}
+							//-->
+							</script>
 						</form>
 
 					</div>

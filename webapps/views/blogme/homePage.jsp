@@ -25,8 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
   </head>
   
-  <body>
-   <nav class="navbar navbar-default navbar-fixed-top">
+  <body style="background-image: url('images/background.jpg');">
+  	<jsp:include page="header.jsp"></jsp:include>
+   <%-- <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -50,6 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-    </nav>
+    </nav> --%>
   </body>
 </html>
