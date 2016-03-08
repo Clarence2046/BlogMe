@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    开始时间:<input type="text" size="12"id="beginDate" class="form-control"  name="beginDate"   value="${old_beginDate }"
 				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen',maxDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}'})">
 				结束时间:<input type="text" size="12" id="endDate" class="form-control"    name="endDate"    value="${old_endDate }"
-				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'whyGreen',minDate:'#F{$dp.$D(\'beginDate\')}',maxDate:'%y-%M-%d'})">
+				onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'beginDate\')}',maxDate:'%y-%M-%d'})">
 				<input  type="submit"  class="btn"  value="查询">
 		</form>
 	</div>

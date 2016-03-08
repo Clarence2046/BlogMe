@@ -12,4 +12,7 @@ public class Comment extends BaseComment<Comment> {
 	public User getUser(){
 		return User.dao.findFirst("select * from c_user where userId="+get("commentUserId"));
 	};
+	public Blog getBlog(){
+		return Blog.dao.findFirst("select * from c_blog where blogId="+get("blogId"));
+	};
 }

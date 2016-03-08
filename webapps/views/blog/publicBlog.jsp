@@ -57,7 +57,9 @@
 
 </head>
 
-<body style="background-image: url('images/background.jpg');">
+<!-- <body style="background-image: url('images/background.jpg');"> -->
+<body style="background-color: #d3eae7;">
+
 	<jsp:include page="../blogme/header.jsp"></jsp:include>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="col placeholders">
@@ -102,8 +104,10 @@
 							<span >
 							 <label style="width: 95%">题目：<a href="blog/blogDetail?blogId=${blog.blogId }">${blog.blogTitle }</a>
 							 	 
+							 	<%-- 
 							 	<a href="blog/deleteBlog?blogId=${blog.blogId }"> <span class="glyphicon glyphicon-trash" style="float: right;"></span>
-							 	</a>
+							 	</a> 
+							 	--%>
 							 	 <br/>
 							 
 								作者：<a href="javascript:void(0)">${blog.user.username }</a>

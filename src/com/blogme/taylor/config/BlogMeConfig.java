@@ -1,5 +1,6 @@
 package com.blogme.taylor.config;
 
+import com.blogme.taylor.controller.BlogMeAjaxController;
 import com.blogme.taylor.controller.BlogMeBlogController;
 import com.blogme.taylor.controller.BlogMeHomeController;
 import com.blogme.taylor.controller.BlogMeManageController;
@@ -37,11 +38,13 @@ public class BlogMeConfig extends JFinalConfig {
 
 	@Override
 	public void configRoute(Routes me) {
+			me.add("/index", BlogMeVisitController.class,"views/user/");
 			me.add("/visitme", BlogMeVisitController.class,"views/user/");
 			me.add("/home", BlogMeHomeController.class,"views/blogme/");
 			me.add("/test", BlogMeTestController.class,"views/test/");
 			me.add("/main", BlogMeManageController.class,"views/manage/");
 			me.add("/blog", BlogMeBlogController.class,"views/blog/");
+			me.add("/ajax", BlogMeAjaxController.class);
 	}
 
 	@Override

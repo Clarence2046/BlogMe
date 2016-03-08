@@ -60,7 +60,8 @@
 
 </head>
 
-<body style="background-image: url('images/background.jpg');">
+<!-- <body style="background-image: url('images/background.jpg');">-->
+<body style="background-color: #d3eae7;">
 	<jsp:include page="../blogme/header.jsp"></jsp:include>
 
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -140,6 +141,10 @@
 							<c:forEach items="${theBlog.comments }" var="comment">
 							<span><a href="javascript:void(0)">${comment.user.username }</a>
 							 <fmt:formatDate value="${comment.commentTime }"  type="date" pattern="yyyy-MM-dd HH:mm:ss"/> 
+							 <c:if test="${loginUser.userId eq theBlog.user.userId }">
+								 <a href="blog/deleteComment?commentId=${comment.commentId }"> <span class="glyphicon glyphicon-trash" style="float: right;"></span>
+								 	</a>
+							 </c:if>
 							 <br/>
 							 ${comment.commentContent }
 							</span><hr/>
@@ -158,7 +163,7 @@
 							<table class="table">
 								<tr>
 									<td><textarea name="content"
-											style="width: 98%; height: 200px; visibility: hidden;">KindEditor</textarea>
+											style="width: 98%; height: 200px; visibility: hidden;"></textarea>
 									</td>
 								</tr>
 								<tr>
@@ -179,9 +184,9 @@
 									dataType:"json",
 									success:  function(data){
 										
-										var appentComment = '<span><a href="javascript:void(0)">'+${loginUser.username}+'</a>'
-											+' <fmt:formatDate value="<\%=new Date() %>"  type="date" pattern="yyyy-MM-dd HH:mm:ss"/> '
-										 +'<br/>'+editor.html()+'</span><hr/>';
+										var appentComment = "<span><a href='javascript:void(0)'>${loginUser.username}</a>"
+											+" <fmt:formatDate value='<\%=new Date() %>'  type='date' pattern='yyyy-MM-dd HH:mm:ss'/> "
+										 +"<br/>"+editor.html()+"</span><hr/>";
 										
 										
 										$("#commentArea").append(appentComment);

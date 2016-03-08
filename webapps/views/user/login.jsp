@@ -19,21 +19,32 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <link href="jsFiles/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="jsFiles/validationEngine/css/validationEngine.jquery.css" rel="stylesheet">
 <!-- <link href="jsFiles/bootstrap/css/bootstrap-theme.css" rel="stylesheet"> -->
 
-<script type="text/javascript" src="jsFiles/jquery/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="jsFiles/jquery/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="jsFiles/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="jsFiles/validationEngine/js/jquery.validationEngine-zh_CN.js"></script>
+<script type="text/javascript" src="jsFiles/validationEngine/js/jquery.validationEngine.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$("#frm").validationEngine();
+})
+
+
+</script>
+
 </head>
 
-<body >
+<body style="background-color: #d3eae7">
 
-	<div style="width: 100%;height: 100%;z-index: -1;position: absolute;">
-		<img alt=""  class="img-responsive" height="80%" src="images/back44.jpg">
-	</div>
-	<div style="height: 25%"></div>
-	<div  style="margin-left: 20%;">
-	<form action="visitme/doLogin" method="post">
-		<table   class="table" style="width: 25%;">
+<!-- 	<div  style="height:80%; margin: 5% auto;background-image: url('images/back44.jpg');width: 60%"> -->
+	<div  style="height:80%; margin: 5% auto;width: 60%">
+	 <div style="height: 25%"></div>
+	<form action="visitme/doLogin" method="post" id="frm">
+		<table   class="table table-responsive" style="width: 300px;margin-left: 20%;">
 			<tr>
 				<td align="center" colspan="2">用户登录<br />
 				<font size="1" color="red">${error }</font></td>
@@ -41,16 +52,16 @@
 
 			<tr>
 				<td>账号</td>
-				<td><input type="text" name="loginUser.loginName"  class="form-control"
+				<td><input type="text" name="loginUser.loginName"  class="form-control validate[required]" 
 					value="${registerUser.loginName }" placeholder="登录名/邮箱" /></td>
 			</tr>
 			<tr>
 				<td>密码</td>
-				<td><input type="password" name="loginUser.password" class="form-control" value=""></td>
+				<td><input type="password" name="loginUser.password" class="form-control validate[required]"  value="" ></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="submit"  class="btn btn-primary" value="登录">
-				<input type="button"  class="btn btn-primary" value="注册">
+				<a  href="index/register"  class="btn btn-primary" >注册</a>
 				</td>
 			</tr>
 		</table>

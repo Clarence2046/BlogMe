@@ -25,7 +25,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
   </head>
   
-  <body style="background-image: url('images/background.jpg');">
+<!--   <body style="background-image: url('images/background.jpg');"> -->
+  <body style="background-color: #d3eae7">
   	<jsp:include page="header.jsp"></jsp:include>
    <%-- <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">

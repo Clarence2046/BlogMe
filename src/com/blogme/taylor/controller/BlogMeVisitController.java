@@ -35,7 +35,7 @@ public class BlogMeVisitController extends Controller {
 			redirect("/blog");
 		} else {
 			setAttr("error", "用户名或密码错误");
-			render("login.jsp");
+			redirect("/index");
 		}
 	}
 
@@ -65,7 +65,7 @@ public class BlogMeVisitController extends Controller {
 		User user = getModel(User.class, "registerUser");
 		getSession().setAttribute("registerUser", user);
 		if (checkUserExist(user)) {
-			redirect("visitme/register");
+			redirect("index/register");
 		}
 
 		// 设置用户状态，1：正常 2：冻结

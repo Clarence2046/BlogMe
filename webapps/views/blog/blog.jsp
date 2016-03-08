@@ -24,15 +24,19 @@
 <link href="jsFiles/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="jsFiles/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 <link href="jsFiles/bootstrap/css/navbar-fixed-top.css" rel="stylesheet">
+<link href="jsFiles/validationEngine/css/validationEngine.jquery.css" rel="stylesheet">
 
-<script type="text/javascript" src="jsFiles/jquery/jquery-2.2.0.min.js"></script>
+
+<script type="text/javascript" src="jsFiles/jquery/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="jsFiles/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="jsFiles/validationEngine/js/jquery.validationEngine-zh_CN.js"></script>
+<script type="text/javascript" src="jsFiles/validationEngine/js/jquery.validationEngine.js"></script>
 
-<link rel="stylesheet"
-	href="jsFiles/kindeditor-4.1.10/themes/default/default.css" />
-<script charset="utf-8"
-	src="jsFiles/kindeditor-4.1.10/kindeditor-min.js"></script>
+
+<link rel="stylesheet" href="jsFiles/kindeditor-4.1.10/themes/default/default.css" />
+<script charset="utf-8" src="jsFiles/kindeditor-4.1.10/kindeditor-min.js"></script>
 <script charset="utf-8" src="jsFiles/kindeditor-4.1.10/lang/zh_CN.js"></script>
+
 <script>
 	var editor;
 	KindEditor.ready(function(K) {
@@ -47,9 +51,10 @@
 	});
 	
 	$(document).ready(function(){
+		$("#frm").validationEngine();
+		
 		$("#listBlogContents img").attr("width","150px");
 		$("#listBlogContents img").attr("height","150px");
-		
 		
 	});
 	
@@ -57,9 +62,11 @@
 
 </head>
 
-<body style="background-image: url('images/background.jpg');">
-	<jsp:include page="../blogme/header.jsp"></jsp:include>
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<!-- <body style="background-image: url('images/background.jpg');">-->
+<body style="background-color: #d3eae7;">
+
+<jsp:include page="../blogme/header.jsp"></jsp:include>	
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="col placeholders">
 			<div class="col-xs-12 col-sm-3 placeholder">
 				<div class="panel panel-default">
@@ -150,15 +157,16 @@
 					</div>
 					<div class="panel-body">
 
-						<form action="blog/publishBlog" method="post">
+						<form action="blog/publishBlog" method="post" id="frm">
+							<input  type="hidden" name="personalBlog"  value="true">
 							<table class="table">
 								<tr>
 									<td><label class="text-primary">主题</label> <input
-										type="text" name="blog.blogTitle"></td>
+										type="text" name="blog.blogTitle" class="validate[required]"></td>
 								</tr>
 								<tr>
 									<td><textarea name="content"
-											style="width: 98%; height: 200px; visibility: hidden;">KindEditor</textarea>
+											style="width: 98%; height: 200px; visibility: hidden;"></textarea>
 									</td>
 								</tr>
 								<tr>
