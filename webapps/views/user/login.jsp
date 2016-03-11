@@ -12,7 +12,8 @@
 <base href="<%=basePath%>">
 
 <title>登录页面</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -31,6 +32,11 @@
 
 $(document).ready(function(){
 	$("#frm").validationEngine();
+	
+	$("#imgyzm").bind("click",function(){
+		$("#imgyzm").attr("src","index/yzm?"+Math.random());
+	
+	});
 })
 
 
@@ -58,6 +64,12 @@ $(document).ready(function(){
 			<tr>
 				<td>密码</td>
 				<td><input type="password" name="loginUser.password" class="form-control validate[required]"  value="" ></td>
+			</tr>
+			<tr>
+				<td>验证码</td>
+				<td><input type="text" name="yzm" id="yzm" class="form-control validate[required]" style="width: 55%;display: inline-block;" value="" >
+				<img alt="" src="index/yzm" id="imgyzm">
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="submit"  class="btn btn-primary" value="登录">

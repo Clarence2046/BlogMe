@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	          </button>
-	          <a class="navbar-brand" href="#">BlogMe</a>
+	          <a class="navbar-brand" href="#">Galaxy</a>
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
@@ -180,9 +180,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           		区域二
           </div>
         </c:if> --%>
+        <frameset>
         <iframe id="uu" src="main/view"   style="width:100%; height:95%;"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes">
 				<%-- <jsp:include page="usermanage.jsp"></jsp:include> --%>
 		</iframe>
+        </frameset>
         <c:if  test="${current eq 'usermanage' }">
         </c:if>
         </div>

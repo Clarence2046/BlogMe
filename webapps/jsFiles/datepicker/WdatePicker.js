@@ -7,10 +7,10 @@
  */
 var $dp, WdatePicker;
 (function () {
-	var $ = {$wdate:true, $crossFrame:false, $dpPath:"", position:{top:'under'}, lang:"auto", skin:"default", dateFmt:"yyyy-MM-dd", realDateFmt:"yyyy-MM-dd", realTimeFmt:"HH:mm:ss", realFullFmt:"%Date %Time", minDate:"1900-01-01 00:00:00", maxDate:"2099-12-31 23:59:59", startDate:"", alwaysUseStartDate:false, yearOffset:1911, isShowWeek:false, highLineWeekDay:true, isShowClear:true, isShowToday:true, isShowOthers:true, readOnly:false, errDealMode:0, autoPickDate:null, qsEnabled:true, disabledDates:null, disabledDays:null, opposite:false, onpicking:null, onpicked:null, onclearing:null, oncleared:null, eCont:null, vel:null, errMsg:"", quickSel:[], has:{}};
+	var $ = {$wdate:true, $crossFrame:true, $dpPath:"", position:{top:'under'}, lang:"auto", skin:"default", dateFmt:"yyyy-MM-dd", realDateFmt:"yyyy-MM-dd", realTimeFmt:"HH:mm:ss", realFullFmt:"%Date %Time", minDate:"1900-01-01 00:00:00", maxDate:"2099-12-31 23:59:59", startDate:"", alwaysUseStartDate:false, yearOffset:1911, isShowWeek:false, highLineWeekDay:true, isShowClear:true, isShowToday:true, isShowOthers:true, readOnly:false, errDealMode:0, autoPickDate:null, qsEnabled:true, disabledDates:null, disabledDays:null, opposite:false, onpicking:null, onpicked:null, onclearing:null, oncleared:null, eCont:null, vel:null, errMsg:"", quickSel:[], has:{}};
 	WdatePicker = S;
 	var V = window, N = "document", H = "documentElement", A = "getElementsByTagName", T, _, R, G, Z;
-	switch (navigator.appName) {
+	switch (navigator.appName) { //获取浏览器类型
 	  case "Microsoft Internet Explorer":
 		R = true;
 		break;
@@ -21,8 +21,8 @@ var $dp, WdatePicker;
 		G = true;
 		break;
 	}
-	T = V;
-	if ($.$crossFrame) {
+	T = V; //t=v=window
+	if ($.$crossFrame) { //判断对象$的 $crossFrame属性值是否为true, 日期插件是否在frameset框架集中,循环取得最上层
 		try {
 			while (T.parent[N] != T[N] && T.parent[N][A]("frameset").length == 0) {
 				T = T.parent;
@@ -31,12 +31,12 @@ var $dp, WdatePicker;
 		catch (P) {
 		}
 	}
-	_ = J();
-	if ($.$wdate) {
-		K(_ + "skin/WdatePicker.css");
+	_ = J();//获取引入的wdatepicker.js的文件目录
+	if ($.$wdate) {//$wdate属性是否为true,是就引入css文件,里面包含一个日期格式错误的样式以及在输入框右边显示日历图标的样式
+		K(_ + "skin/WdatePicker.css");//向head中追加link标签,引入此css文件
 	}
 	var L;
-	if (T.$dp) {
+	if (T.$dp) {//T.$dp 日期插件对象
 		try {
 			L = (T.$dp.$("MY") == "lIkEmY97");
 		}
@@ -119,6 +119,7 @@ var $dp, WdatePicker;
 	}
 	function J() {
 		var _, A, $ = document.getElementsByTagName("script");
+		//获取所有的script标签对象,遍历寻找是否引入了wdatepicker.js文件,获取他的目录
 		for (var B = 0; B < $.length; B++) {
 			_ = $[B].src.substring(0, $[B].src.toLowerCase().indexOf("wdatepicker.js"));
 			A = _.lastIndexOf("/");
@@ -171,7 +172,8 @@ var $dp, WdatePicker;
 		}
 		$.$dpPath = F;
 	}
-	function K(C, $, D) {
+	function K(C, $, D) {//传入了WdatePicker.css的位置, 此方法在head中追加一个引入日期插件css的link标签
+		//B=window["document"] E=B["getElementsByTagName"], E为head标签对象, _为新创建的link标签对象
 		var B = V[N], E = B[A]("HEAD").item(0), _ = B.createElement("link");
 		_.href = C;
 		_.rel = "stylesheet";

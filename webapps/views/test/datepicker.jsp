@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <jsp:include page="../blogme/header.jsp"></jsp:include>
+  <jsp:include page="../front/home/navibar.jsp"></jsp:include>
    测试专用页面 >>WdatePicker测试页面<br/>
    
    <input  type="text"  id="test1"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',realDateFmt:'yyyy-MM-dd HH:mm:ss',skin:'whyGreen'})"  class="wdate"/>
@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	}
    </script>
    <br/>
-   
+   <input id="d422" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-{%d+1}'})"/>
   </body>
   
   
