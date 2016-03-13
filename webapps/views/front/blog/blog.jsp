@@ -74,7 +74,7 @@
 
 <div  style="margin-left: auto;margin-right: auto;width: 1150px;height: 150px">
 	<div style="margin-left:5%; width: 75%; height: 100px;">
-		<font size="6" style="font-family:monospace; ">${theBlog.user.username }的漫游银河日志</font>
+		<font size="6" style="font-family:monospace; ">${loginUser.username }的漫游银河日志</font>
 		<br/>
 		<font color="#ff9900">遥远的飞马星系</font>
 	</div>
@@ -82,7 +82,7 @@
 
 <div style="margin-left: auto;margin-right: auto;width: 1150px;">
 		<div class="col placeholders">
-			<div class="col-xs-12 col-sm-3 placeholder">
+			<div class="col-xs-12 col-sm-3 placeholder" style="width: 300px">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="thumbnail" style="width: 65%">
