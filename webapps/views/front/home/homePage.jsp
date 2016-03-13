@@ -55,12 +55,12 @@
 	height: 100%;
 	height: auto;
 	overflow: hidden;
-	margin-top: 50px;
+	/* margin-top: 50px; */
 }
 
 .content .banner {
 	width: 80%;
-	height: 25%;
+	height: 130px;
 	margin: 0 auto;
 	border-radius: 4px 4px;
 }
@@ -215,11 +215,48 @@ a:HOVER {
 }
 
 .sep_solid {
-	width:98%;
+	width: 98%;
 	border-bottom-style: solid;
 	border-bottom-width: thin;
 	margin-top: 5px;
 	border-bottom-color: #e8e8e8;
+}
+
+
+
+.nav {
+	width: 100%;
+	height: 40px;
+	background: #EBEBEB;
+}
+
+.nav ul {
+	width: 1050px;
+	margin: 0 auto;
+	font-size: 16px;
+}
+
+.nav ul li {
+	float: left;
+	margin: 0 30px;
+}
+
+.nav ul a {
+	color: #666;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 15px;
+}
+
+ul,ol,li {
+	list-style-type: none;
+}
+
+.fixTop{
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
 }
 -->
 </style>
@@ -238,7 +275,7 @@ $(function(){
 </script>
 
 <body>
-	<jsp:include page="navibar.jsp"></jsp:include>
+	<%-- <jsp:include page="navibar.jsp"></jsp:include> --%>
 	<%--
   		加了属性float:浮动元素
   	  	让大div根据内部div中内容自动变大：外部div添加overflow：hidden
@@ -258,8 +295,18 @@ $(function(){
 			<div style="background-image: url('images/mingyan.png'); width: 110px; height: 100px; float: left; margin-top: 10px;"></div>
 
 		</div>
+		<div class="nav" >
+			<ul>
+				<li><a href="home">首页</a></li>
+				<li><a>流光</a></li>
+				<li><a>岁月</a></li>
+				<li><a>海纳百川</a></li>
+				<li><a>札记</a></li>
+				<li><a>关于我</a></li>
+				<li><a>留声</a></li>
+			</ul>
+		</div>
 		<div id="seperator1" style="width: 80%; margin: 0 auto; height: 10px"></div>
-
 		<%-- content 展示 --%>
 		<div id="contentDiv" class="main_content">
 			<div id="leftDiv1" class="left">
@@ -429,6 +476,27 @@ $(function(){
 			0[(getElementsByTagName('head')[0] || body)
 					.appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='
 					+ ~(-new Date() / 36e5)];
+	</script>
+
+	<script type="text/javascript">
+	
+		window.onscroll = document.onscroll = scrollFunc;
+	
+
+		function scrollFunc() {
+			var statictop = document.getElementById("contentDiv").offsetTop;
+			var top = document.documentElement.scrollTop
+					|| document.body.scrollTop;
+			var scrollTop = document.documentElement.scrollTop
+					+ document.body.scrollTop;
+			console.log(statictop + " " + top + " " + scrollTop);
+			if (statictop - top < 50) {
+				$(".nav").addClass("fixTop");
+			} else {
+				$(".nav").removeClass("fixTop");
+			}
+
+		}
 	</script>
 
 </body>
