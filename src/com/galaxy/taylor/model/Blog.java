@@ -31,4 +31,16 @@ public class Blog extends BaseBlog<Blog> {
 		}
 		return blogs;
 	}
+
+	public static List<Blog> getArticles(String conditions) {
+		List<Blog> blogs;
+		
+		
+		blogs = Blog.dao.find("select *  from c_blog  where status=1 "+conditions);
+		return blogs;
+	}
+	
+	public  Classify  getClassify(){
+		return Classify.dao.findById(get("type"));
+	}
 }

@@ -1,0 +1,254 @@
+.title {
+	background-color: #EBEBEB;
+	border-radius: 0px 8px 8px 0px;
+	/* -webkit-box-shadow: #666 0px 0px 10px;
+	-moz-box-shadow: #666 0px 0px 10px;
+	box-shadow: #666 0px 0px 10px; */
+	margin-bottom: 5px;
+	font-size: small;
+}
+
+.inshadow {
+	border-radius: 4px 4px;
+	-webkit-box-shadow: inset #D3D3D3 0px 0px 10px;
+	-moz-box-shadow: inset #D3D3D3 0px 0px 10px;
+	box-shadow: inset #D3D3D3 0px 0px 10px;
+}
+
+.outshadow {
+	border-radius: 4px 4px;
+	-webkit-box-shadow: #666 0px 0px 10px;
+	-moz-box-shadow: #666 0px 0px 10px;
+	box-shadow: #666 0px 0px 10px;
+}
+
+.content {
+	margin-left: auto;
+	height: 100%;
+	height: auto;
+	overflow: hidden;
+	min-width: 1200px;
+	/* margin-top: 50px; */
+}
+
+.content .banner {
+	width: 1100px;
+	height: 130px;
+	margin: 0 auto;
+	border-radius: 4px 4px;
+}
+
+.content .main_content {
+	background-color: white;
+	width: 80%;
+	margin: 0 auto;
+	height: auto;
+	overflow: hidden;
+	max-width: 1000px;
+}
+
+.content .main_content .left {
+	background-color: white;
+	width: 20%;
+	height: 100%;
+	height: auto;
+	min-height: 420px;
+	display: inline-block;
+	float: left;
+	/* border-right-style: dashed;
+	border-right-width: thin;
+	border-left-style: dashed;
+	border-left-width: thin; */
+	/* border-radius: 8px 8px;
+	-webkit-box-shadow: #666 0px 0px 10px;
+	-moz-box-shadow: #666 0px 0px 10px;
+	box-shadow: #666 0px 0px 10px; */
+}
+
+.content .main_content .center {
+	background-color: white;
+	width: 60%;
+	height: 100%;
+	height: auto;
+	min-height: 420px;
+	display: inline-block;
+	float: left;
+}
+
+.content .main_content .holder {
+	width: 98%;
+	height: 260px;
+	background-color: white;
+	margin: 0 auto;
+}
+
+.content .main_content .center .content_bottom {
+	width: 98%;
+	height: 54%;
+	height: auto;
+	min-height: 54%;
+	background-color: white;
+	margin: 0 auto;
+}
+
+.content .main_content .center .content_bottom  .left {
+	width: 100%;
+	height: 100%;
+	height: auto;
+	min-height: 200px;
+	background-color: white;
+	display: inline-block;
+	float: left;
+}
+
+.content .main_content .center .content_bottom  .right {
+	width: 0%;
+	height: 100%;
+	height: auto;
+	min-height: 200px;
+	background-color: white;
+	display: inline-block;
+	float: right;
+}
+
+.content .main_content .right {
+	background-color: white;
+	width: 20%;
+	height: 100%;
+	height: auto;
+	min-height: 420px;
+	display: inline-block;
+	float: left;
+	width: 20%;
+	height: 100%;
+	height: auto;
+	min-height: 420px;
+	display: inline-block;
+	/* 	border-right-style: dashed;
+	border-right-width: thin;
+	border-left-style: dashed;
+	border-left-width: thin; */
+	/* border-radius: 8px 8px;
+	-webkit-box-shadow: #666 0px 0px 10px;
+	-moz-box-shadow: #666 0px 0px 10px;
+	box-shadow: #666 0px 0px 10px; */
+}
+
+.content .footer {
+	height: 8%;
+	width: 100%;
+	margin: 0 auto;
+	background-color: #EBEBEB;
+	text-align: center;
+	font-size: 15px;
+	color: #666;
+	padding-top: 6px;
+}
+
+a {
+	color: #668B8B;
+	line-height: normal;
+	text-decoration: none;
+	font-size: small;
+}
+
+a:HOVER {
+	color: #f26868;
+	text-decoration: none;
+}
+
+.labelm {
+	border: 1px solid #ccc;
+	margin: 8px;
+	float: left;
+}
+
+.btnm {
+	padding: 5px 10px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 12px;
+	float: left;
+	margin-top: 10px;
+}
+
+.btnr {
+	padding: 5px 10px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 12px;
+	float: right;
+	margin-top: 5px;
+}
+
+#recommend a:hover {
+	background-color: #f26868;
+	text-decoration: none;
+	color: white;
+}
+
+.sep_dash {
+	border-bottom-style: dashed;
+	border-bottom-width: thin;
+	margin-top: 5px;
+	border-bottom-color: #aaa;
+}
+
+.sep_solid {
+	width: 98%;
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	margin-top: 5px;
+	border-bottom-color: #e8e8e8;
+}
+
+.nav {
+	width: 100%;
+	height: 40px;
+	background: #EBEBEB;
+}
+
+.nav ul {
+	width: 1050px;
+	margin: 0 auto;
+	font-size: 16px;
+}
+
+.nav ul li {
+	float: left;
+	margin: 0 30px;
+}
+
+.nav ul li:HOVER {
+	
+	background-image: url("../images/navback1.png");
+}
+
+.active{
+	background-image: url("../images/navback1.png");
+}
+
+.nav ul a {
+	color: #666;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 15px;
+}
+
+
+ul,ol,li {
+	list-style-type: none;
+}
+
+.fixTop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+
+#new_article p{
+	font-size: 14px;
+	line-height: 25px;
+	color: #6f6f6f;
+}

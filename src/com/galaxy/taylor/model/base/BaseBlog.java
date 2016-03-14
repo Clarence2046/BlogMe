@@ -81,4 +81,12 @@ public abstract class BaseBlog<M extends BaseBlog<M>> extends Model<M> implement
 		return get("status");
 	}
 
+	public void setType(java.lang.Integer type) {
+		set("type", type);
+	}
+
+	public java.lang.Integer getType() {
+		return get("type");
+	}
+
 }

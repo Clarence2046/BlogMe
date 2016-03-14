@@ -107,7 +107,10 @@
 <%-- 	<jsp:include page="../blogme/header.jsp"></jsp:include>
  --%>	测试专用页面
 	<br>
-
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2088587"></script>
+<!-- UY END -->
 	<div style="background-color:red;width: 1200px;height: auto;;margin-left: auto;margin-right: auto;">
 	<div style="width: 600px;height: 150px;background-color: blue;margin-left: auto;margin-right: auto;">
 	</div>
