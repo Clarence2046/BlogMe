@@ -5,11 +5,14 @@ import java.util.List;
 
 import com.galaxy.taylor.interceptor.AuthInterceptor;
 import com.galaxy.taylor.model.Blog;
+import com.galaxy.taylor.model.Classify;
 import com.galaxy.taylor.model.Comment;
 import com.galaxy.taylor.model.User;
 import com.galaxy.taylor.util.Constants;
 import com.galaxy.taylor.util.StringUtil;
 import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
+import com.jfinal.core.ActionKey;
 import com.jfinal.core.Controller;
 
 /**
@@ -18,7 +21,7 @@ import com.jfinal.core.Controller;
  * @author lihl
  * 
  */
-
+@Clear
 @Before(AuthInterceptor.class)
 public class GalaxyBlogController extends Controller {
 
@@ -159,4 +162,126 @@ public class GalaxyBlogController extends Controller {
 
 		redirect("/blog/blogDetail?blogId=" + blogId);
 	}
+	
+	//------------------------------------------单独发布文章页面------------------------------------------------
+	
+	
+	@ActionKey("new_art")
+	public void writeArticle(){
+		
+		//查询出所有父分类
+		List<Classify>  pclassify = Classify.dao.find("select * from c_classify where parentTypeId is null");
+		setAttr("parents", pclassify);
+		//子分类
+		List<Classify>  cclassify = Classify.dao.find("select * from c_classify where parentTypeId is not null");
+		setAttr("children", cclassify);
+		render("pubArticle.jsp");
+	}
+	
+	@ActionKey("all_art")
+	public void allArticles(){
+		//子分类
+		List<Classify>  cclassify = Classify.dao.find("select * from c_classify where parentTypeId is not null");
+		setAttr("children", cclassify);
+		
+		renderJson("children", cclassify);
+	}
+	
+	@ActionKey("spe_art")
+	public void indicateArticles(){
+		String parentId = getPara("pid");
+		//子分类
+		List<Classify>  cclassify = Classify.dao.find("select * from c_classify where parentTypeId =?",parentId);
+		setAttr("children", cclassify);
+		
+		renderJson("children", cclassify);
+	}
+	
+	/**
+	 * 发布文章
+	 */
+	@Clear
+	@ActionKey("pub_art")
+	public void publishArticle() {
+
+		Blog blog = getModel(Blog.class);
+		//String content = getPara("content");
+		//String personalBlog = getPara("personalBlog");
+		//blog.setBlogContent(content);
+
+		blog.setPublishTime(new Date());
+		blog.setUserId(1);
+
+		Object user = getSession().getAttribute(Constants.LOGIN_USER);
+		if (user != null) {
+			User u = (User) user;
+			blog.setUserId(u.getUserId());
+		}
+
+		blog.setViews(0);
+
+		//String contentWithNoHtml = StringUtil.clearHtmlStr(getPara("content"));
+
+		//blog.setContentWithNoHtml(contentWithNoHtml);
+		
+		String parentTypeId = getPara("parentTypeId");
+		String childid = getPara("childid");
+		String newDescription = getPara("newDescription");
+		
+		if(childid==null || "".equals(childid)){
+			if(newDescription==null || "".equals(newDescription)){
+				if(parentTypeId==null || "".equals(parentTypeId)){
+					//自动归为海纳百川
+					blog.setType(3);
+				}else{
+					blog.setType(Integer.valueOf(parentTypeId));
+				}
+			}else{
+				Classify  classify = new Classify();
+				classify.setDescription(newDescription);
+				//新加了标签newDescription,先存储新的,然后设置给article
+				if(parentTypeId !=null && !"".equals(parentTypeId)){
+					classify.setParentTypeId(Integer.valueOf(parentTypeId));
+				}else{
+					//自动归为海纳百川
+					classify.setParentTypeId(3);
+				}
+				classify.save();
+				Integer typeId = classify.getTypeId();
+				blog.setType(typeId);
+			}
+		}else{
+			blog.setType(Integer.valueOf(childid));
+		}
+		
+		blog.save();
+
+		System.out.println(blog.getBlogTitle());
+		//System.out.println(content);
+
+		// render("blog.jsp");
+		redirect("/new_art");
+
+	}
+	
+	@ActionKey("ajaxCheckClassify")
+	public void ajaxCheckClassify(){
+		String newDescription = getPara("newd");
+		Classify classify = Classify.dao.findFirst("select * from c_classify where description = ?", newDescription.trim());
+		if(classify==null){
+			renderJson("result", false);
+		}else{
+			renderJson("result", true);
+		}
+	}
+	
+	
+	//-------------------------------------------所有文章管理------------------------------------------
+	
+	@ActionKey("mng_art")
+	public void manageArticles(){
+		
+	}
+	
+	
 }

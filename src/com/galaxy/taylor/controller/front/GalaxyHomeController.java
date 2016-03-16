@@ -46,6 +46,20 @@ public class GalaxyHomeController extends Controller {
 	@ActionKey("liug")
 	public void liug() {
 		setAttr("viewPage", "liug");
+		//查询当前分类下的文章
+		String conditions = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by PublishTime desc";
+		List<Blog> articles = Blog.getArticles(conditions);
+		setAttr("articles", articles);
+		
+		//查询所有分类下标签
+		List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=1");
+		setAttr("classifies", classifies);
+		
+		//当前分类下阅读最多的文章(热门文章)
+		String conditions1 = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by views desc";
+		List<Blog> articles1 = Blog.getArticles(conditions1);
+		setAttr("hotarticles", articles1);
+		
 		render("homePage.jsp");
 	}
 	
@@ -56,6 +70,7 @@ public class GalaxyHomeController extends Controller {
 	@ActionKey("suiy")
 	public void suiy() {
 		setAttr("viewPage", "suiy");
+		//时间历程
 		render("homePage.jsp");
 	}
 	
@@ -66,6 +81,21 @@ public class GalaxyHomeController extends Controller {
 	@ActionKey("hnbc")
 	public void hnbc() {
 		setAttr("viewPage", "hnbc");
+		
+		//查询当前分类下的文章
+		String conditions = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by PublishTime desc";
+		List<Blog> articles = Blog.getArticles(conditions);
+		setAttr("articles", articles);
+		
+		//查询所有分类下标签
+		List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=3");
+		setAttr("classifies", classifies);
+		
+		//当前分类下阅读最多的文章(热门文章)
+		String conditions1 = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by views desc";
+		List<Blog> articles1 = Blog.getArticles(conditions1);
+		setAttr("hotarticles", articles1);
+		
 		render("homePage.jsp");
 	}
 	
@@ -76,6 +106,21 @@ public class GalaxyHomeController extends Controller {
 	@ActionKey("zhaj")
 	public void zhaj() {
 		setAttr("viewPage", "zhaj");
+		
+		//查询当前分类下的文章
+		String conditions = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by PublishTime desc";
+		List<Blog> articles = Blog.getArticles(conditions);
+		setAttr("articles", articles);
+		
+		//查询所有分类下标签
+		List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=4");
+		setAttr("classifies", classifies);
+		
+		//当前分类下阅读最多的文章(热门文章)
+		String conditions1 = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by views desc";
+		List<Blog> articles1 = Blog.getArticles(conditions1);
+		setAttr("hotarticles", articles1);
+		
 		render("homePage.jsp");
 	}
 	
@@ -121,6 +166,10 @@ public class GalaxyHomeController extends Controller {
 			String description = classifyP.getDescription();
 			setAttr("bread_second", description);
 			setAttr("trueUrl", classifyP.getUrl());
+			
+			//查询当前分类下标签
+			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=?",parentTypeId);
+			setAttr("classifies", classifies);
 		}
 		setAttr("bread_third", classify.getDescription());
 		

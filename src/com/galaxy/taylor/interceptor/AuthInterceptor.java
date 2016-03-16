@@ -20,7 +20,8 @@ public class AuthInterceptor implements Interceptor{
 				//查询当前用户具有的菜单权限
 				Map<String,String>  m = new HashMap<String,String>();
 				m.put("流光", "home");
-				m.put("关于", "about");
+				m.put("发布文章", "new_art");
+				m.put("文章管理", "mng_art");
 				m.put("博客", "blog");
 				m.put("我的博客", "blog?isMyBlog=true");
 				m.put("测试页面", "test");

@@ -36,7 +36,8 @@ public class GalaxyController extends Controller {
 					user.getLoginName(), user.getPassword());
 			getSession().setAttribute(Constants.LOGIN_USER, userLogin);
 
-			redirect("/blog?isMyBlog=true");
+			//redirect("/blog?isMyBlog=true");
+			redirect("/new_art");
 		} else {
 			setAttr("error", "用户名或密码错误");
 			redirect("/index");

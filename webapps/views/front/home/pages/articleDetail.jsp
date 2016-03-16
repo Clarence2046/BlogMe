@@ -53,8 +53,17 @@
 		</div>
 		<div class="right" style="width: 32%;margin-left: 15px">
 			<div class="title">分类标签</div>
-			<div style="height: 249px">
-			
+			<div style="min-height: 50px">
+				<c:forEach items="${classifies }" var="classify">
+					<c:choose>
+						<c:when test="${classify.description == bread_third}">
+							<a href="http://www.baidu.com" class="btnm labelm active" target="_blank">${classify.description }</a>
+						</c:when>
+						<c:otherwise>
+							<a href="http://www.baidu.com" class="btnm labelm" target="_blank">${classify.description }</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
 			</div>
 			<div class="title">热门文章</div>
 			<div style="height: 249px"></div>

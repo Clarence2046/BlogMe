@@ -110,7 +110,7 @@
 						<div style="clear: both;height: 160px">
 							<p style="font-size: medium;">
 								<a href="art_d?art=${article.blogId }" target="_blank">${ article.blogTitle}</a> <br />
-								<font size="2" color="#aaa">时间：${ article.publishTime} 作者：${ article.user.username}  分类：未分类</font>
+								<font size="2" color="#aaa">时间：${ article.publishTime} 作者：${ article.user.username}  分类：${ article.classify.description}</font>
 							</p>
 							<div>
 								<div style="float: left;">

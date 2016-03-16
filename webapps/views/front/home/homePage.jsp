@@ -12,7 +12,7 @@
 <head>
 <base href="<%=basePath%>">
 
-<title>主页</title>
+<title>${article.blogTitle }_${bread_second}_taylor的个人博客</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -109,6 +109,9 @@ function activeNav(navItems){
 				<li><a href="zhaj">札记</a></li>
 				<li><a href="gyuw">关于我</a></li>
 				<li><a href="lius">留声</a></li>
+				<c:if test="${loginUser !=null }">
+					<li><a href="new_art">后台</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<div id="seperator1" style="width: 80%; margin: 0 auto; height: 10px"></div>
@@ -117,7 +120,7 @@ function activeNav(navItems){
 			<c:if test="${viewPage == 'home' }">
 				<jsp:include page="pages/main.jsp"></jsp:include>
 			</c:if>
-			<c:if test="${viewPage == 'liug' }">
+			<c:if test="${viewPage == 'liug' || viewPage == 'zhaj' || viewPage == 'hnbc' }">
 				<jsp:include page="pages/liug.jsp"></jsp:include>
 			</c:if>
 			<c:if test="${viewPage == 'suiy' }">

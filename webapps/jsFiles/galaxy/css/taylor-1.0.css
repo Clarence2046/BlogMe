@@ -135,14 +135,14 @@
 }
 
 .content .footer {
-	height: 8%;
+	height: 7%;
 	width: 100%;
 	margin: 0 auto;
 	background-color: #EBEBEB;
 	text-align: center;
-	font-size: 15px;
+	font-size: 12px;
 	color: #666;
-	padding-top: 6px;
+	padding-top: 2px;
 }
 
 a {

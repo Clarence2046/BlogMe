@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -31,11 +32,11 @@
 		<div class="left" style="width: 64%;border-right: thin dashed #aaa;padding-right: 15px">
 			<div align="left" class="title">所有文章</div>
 			<div id="new_article" style="width: 100%">
-				<c:forEach begin="1" end="5" varStatus="status">
+				<c:forEach items="${articles }" begin="0" end="5" varStatus="status" var="article">
 					<div style="clear: both;height: 160px">
 						<p style="font-size: medium;">
-							<a href="home" target="_blank">宇宙大爆炸经典理论 ${status.index }</a> <br />
-							<font size="2" color="#aaa">时间：2016-01-01 作者：admin 分类：未分类</font>
+							<a href="art_d?art=${article.blogId }" target="_blank">${article.blogTitle }</a> <br />
+							<font size="2" color="#aaa">时间：${article.publishTime } 作者：${article.user.username } 分类：${article.classify.description }</font>
 						</p>
 						<div>
 							<div style="float: left;">
@@ -43,9 +44,13 @@
 									style="">
 							</div>
 							<div style="margin-left: 160px;height: 75px;">
-								<p>“大爆炸宇宙论”（The Big Bang
-									Theory）认为：宇宙是由一个致密炽热的奇点于137亿年前一次大爆炸后膨胀形成的。[1]
-									1927年，比利时天文学家和宇宙学家勒梅特...</p>
+								<p><c:if test="${fn:length(article.contentWithNoHtml)>50 }">
+									${fn:substring(article.contentWithNoHtml,0,50) }
+									</c:if>
+									<c:if test="${fn:length(article.contentWithNoHtml)<=50 }">
+										${article.contentWithNoHtml }
+									</c:if>...
+								</p>
 								
 							</div>
 							<div style="float: right;">
@@ -60,11 +65,18 @@
 		</div>
 		<div class="right" style="width: 32%;margin-left: 15px">
 			<div class="title">分类标签</div>
-			<div style="height: 249px">
-			
+			<div style="min-height: 50px">
+				<c:forEach items="${classifies }" var="classify">
+					<a href="http://www.baidu.com" class="btnm labelm" target="_blank">${classify.description }</a>
+				</c:forEach>
 			</div>
 			<div class="title">热门文章</div>
-			<div style="height: 249px"></div>
+			<div style="height: 249px">
+				<c:forEach items="${hotarticles }" var="hotart" begin="0" end="8">
+					<a href="art_d?art=${hotart.blogId }" > ${hotart.blogTitle }</a>
+					<div class="sep_solid"></div>
+				</c:forEach>
+			</div>
 			<div class="title">评论最多</div>
 			<div style="height: 249px"></div>
 			
