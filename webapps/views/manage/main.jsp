@@ -52,7 +52,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
 
   </head>
-  
+  <style>
+<!--
+.test{
+    width: 0;
+    height: 0;
+    border-top: 17px solid transparent;
+    border-right: 34px solid white;
+    border-bottom: 17px solid transparent;
+    float: right;
+    margin-top: -10px;
+    margin-right: -22px;
+}
+-->
+</style>
   <body>
   	
   
@@ -100,16 +113,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </nav>
 	
 	   <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-2 col-md-2 sidebar">
+      <div class="row" >
+        <div class="col-sm-2 col-md-2 sidebar" style="border-right-color: white;">
           <ul class="nav nav-sidebar">
-            <li id="view"><a href="main">
+            <li id="view" ><a href="main">
             	<span class="glyphicon glyphicon-bookmark"> 概览 <span class="sr-only">(current)</span></span>
+            	
+            	 <span class="test" id="active"></span>
             	</a>
             </li>
             <li  id="manage" onclick="activeMe(this)">
             <a data-toggle="collapse"   href="#userManage"  >
-            	<span class="glyphicon glyphicon-cog"> 管理</span>
+            	<span class="glyphicon glyphicon-cog"> 管理
+            	</span>
+            <span class="test" id="active"></span>
             </a>
             <div id="userManage"   class="collapse">
             	<div class="panel-body">

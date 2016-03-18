@@ -3,6 +3,7 @@ package com.galaxy.taylor.controller;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.galaxy.taylor.config.BlogMeConfig;
 import com.galaxy.taylor.interceptor.AuthInterceptor;
 import com.galaxy.taylor.model.User;
 import com.galaxy.taylor.util.Constants;
@@ -19,6 +20,7 @@ import com.jfinal.core.Controller;
 public class GalaxyController extends Controller {
 	// =========================登陆开始=========================
 	public void index() {
+		setAttr("error", "ajax设置请求属性");
 		render("login.jsp");
 	}
 	public void yzm() {

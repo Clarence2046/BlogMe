@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@page contentType="text/html; charset=UTF-8" deferredSyntaxAllowedAsLiteral="true" %>
 <%
@@ -98,62 +99,215 @@
 		str=document.getElementById("312").value;
 		return str ;
 	}
+	
+	$(function(){
+		$("#sidebar ul li").bind("click",function(){
+			//console.log($(this));
+			var actives = $("#sidebar ul li.active");
+			
+			for ( var i = 0; i < actives.length; i++) {
+				var active = actives[i];
+				$(active).removeClass("active");
+				$("#active").removeClass("test");
+				$(active).bind("mouseover",function(){
+					$(this).css("box-shadow","2px -1px 5px #989898");
+				});
+				$(active).bind("mouseleave",function(){
+					//console.log($(this).css("box-shadow"));
+					$(this).css("box-shadow","0px 0px 0px");
+				});
+				
+				
+				//console.log($(active).is($(this)));
+				if(!$(active).is($(this))){
+					$(active).find("ul").css("display","none");
+					$(active).find("a").find(".glyphicon-folder-close").removeClass("glyphicon-folder-open");
+				}
+			}
+			
+			$("#act").remove();
+			
+			if($(this).hasClass("active")){
+				$(this).removeClass("active");
+				$("#active").removeClass("test");
+			}else{
+				$(this).addClass("active");
+				$(this).prepend("<div class='test' id='act'></div>");
+				if($(this).find("a").find(".glyphicon-folder-close").hasClass("glyphicon-folder-open")){
+					$(this).find("a").find(".glyphicon-folder-close").removeClass("glyphicon-folder-open");
+				}else{
+					$(this).find("a").find(".glyphicon-folder-close").addClass("glyphicon-folder-open");
+				}
+				
+				
+				$(this).css("box-shadow","0px 0px");
+				$(this).bind("mouseover",function(){
+					//console.log($(this).css("box-shadow"));
+					$(this).css("box-shadow","0px 0px");
+				});
+				
+				//console.log($(this).find("ul").css("display"));
+				if($(this).find("ul").css("display")=="block"){
+					$(this).find("ul").css("display","none");
+				}else{
+					$(this).find("ul").css("display","");
+				}
+				
+				var url = $(this).find("a").attr("visit");
+				if(url!=undefined){
+					console.log(url);
+					$("#content").attr("src",url);
+				}
+			}
+		});
+	})
 </script>
 
+<style>
+<!--
+.test {
+	width: 0;
+	height: 0;
+	border-top: 6px solid transparent;
+	border-right: 8px solid white;
+	border-bottom: 6px solid transparent;
+	float: right;
+	margin-top: 0px;
+	position: static;
+}
 
+#sidebar {
+	background-color: #5c5c5c;
+}
+
+#sidebar ul li {
+	min-height: 30px;
+	line-height: 30px;
+	border-bottom-color: gray;
+	border-bottom-width: thin;
+	border-bottom-style: solid;
+	margin-left: -40px;
+}
+
+#sidebar ul li:HOVER {
+	background-color: #303030;
+	box-shadow: 2px -1px 5px #989898;
+}
+
+#sidebar ul li.active {
+	background-color: #989898;
+}
+
+#sidebar ul li a {
+	color: white;
+	margin-top: 5px;
+	margin-left: 10px;
+	text-decoration: none;
+	cursor: default;
+}
+
+#sidebar ul li ul {
+	background-color: #5c5c5c;
+	list-style-type: none;
+}
+
+#sidebar ul li ul li {
+	padding-left: 30px;
+}
+
+#sidebar ul li ul li:HOVER { /* 	background-color: red; */
+	
+}
+
+.active {
+	background-color: #989898;
+}
+-->
+</style>
 </head>
 
 <body>
-<%-- 	<jsp:include page="../blogme/header.jsp"></jsp:include>
- --%>	测试专用页面
-	<br>
-<!-- UY BEGIN -->
-<div id="uyan_frame"></div>
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2088587"></script>
-<!-- UY END -->
-	<div style="background-color:red;width: 1200px;height: auto;;margin-left: auto;margin-right: auto;">
-	<div style="width: 600px;height: 150px;background-color: blue;margin-left: auto;margin-right: auto;">
+<div style="width: 1200px;box-shadow:2px -1px 2px #5c5c5c;margin-top: 20px;overflow: hidden;min-height: 600px;">
+	<div style="width: 150px;float: left;min-height: 600px" id="sidebar" >
+		<ul style="margin: 0px;list-style-type: none;" >
+			<li> <div class='test' id='act'></div>
+				<a style="margin-top: 5px;" >
+					<label class="glyphicon glyphicon-home"></label>
+					<span>欢迎页</span>
+				</a>
+			</li>
+			<li>
+				<a style="margin-top: 5px;margin-left: 10px" >
+					<label class="glyphicon glyphicon-user" ></label>
+					<span>标题二</span>
+					<label style="float: right;margin-right: 13px;margin-top: 5px;" class="glyphicon glyphicon-folder-close"></label>
+				</a>
+				<ul  style="display: none;">
+					<c:forEach  begin="1" end="5" varStatus="status">
+						<li>
+							<a visit="index">导航2.${status.index }</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</li>
+			<li>
+				<a style="margin-top: 5px">
+					<label class="glyphicon glyphicon-fire" ></label>
+					<span>标题三</span>
+					<label style="float: right;margin-right: 13px;margin-top: 5px;" class="glyphicon glyphicon-folder-close"></label>
+				</a>
+				<ul style="display: none;">
+					<c:forEach  begin="1" end="5" varStatus="status">
+						<li>
+							<a visit="index">导航3.${status.index }</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</li>
+			<li>
+				<a style="margin-top: 5px" visit="test_art">
+					<label class="glyphicon glyphicon-globe" ></label>
+					<span>写文章</span>
+				</a>
+			</li>
+			<li>
+				<a style="margin-top: 5px">
+					<label class="glyphicon glyphicon-leaf" ></label>
+					<span>标题五</span>
+					<label style="float: right;margin-right: 13px;margin-top: 5px;" class="glyphicon glyphicon-folder-close"></label>
+				</a>
+				<ul style="display: none;">
+					<c:forEach  begin="1" end="5" varStatus="status">
+						<li>
+							<a visit="new_art">导航5.${status.index }</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</li>
+			<li>
+				<a style="margin-top: 5px" visit="home">
+					<label class="glyphicon glyphicon-picture" ></label>
+					<span>标题六</span>
+				</a>
+			</li>
+			<li>
+				<a style="margin-top: 5px" visit="home">
+					<label class="glyphicon glyphicon-cog" ></label>
+					<span>标题七</span>
+				</a>
+			</li>
+		</ul>
 	</div>
-	
-	<div style="width: 600px;height: 400px;background-color: green;margin-left: auto;margin-right: auto;">
+	<div style="float: left;width: 1050px;min-height: 600px" id="cont">
+		<iframe style="border: 0;min-height:600px; width: 100%;overflow-x:hidden;" src="views/test/datepicker.jsp" id="content" >
+		</iframe>
 	</div>
-	
-	</div>
-	<br />
-
-	<a href="views/test/datepicker.jsp">进入 WdatePicker测试页面</a>
-
-	<input type="text" onfocus="WdatePicker(b)" class="wdate" id="213">
-	<input type="text" onfocus="WdatePicker(b1)" class="wdate" id="312">
-	
-	<br/>
-	时间段<br/>
-	<input type="text" onfocus="WdatePicker(c1)" class="wdate" id="c1">
-	<input type="text" onfocus="WdatePicker(c2)" class="wdate" id="c2">
-	<script type="text/javascript">
-	//日期差量,支持y M d H m s
-		var c1={
-			maxDate:"#F{$dp.$D('c2',{d:-5})}"	
-				
-		};
-	
-		var c2={
-			minDate:"#F{$dp.$D('c1',{d:+5})}"	
-			
-		};
-	
+	<script type="text/javascript" language="javascript">
 	</script>
+	</div>
+<br/>
+
+	<jsp:include page="../front/home/navibar.jsp"></jsp:include>
 	
-	<hr/>
-	无效天(相关属性disabledDays (0至6 分别代表 周日至周六)):<br/>
-	<input id="d441" type="text" class="Wdate" onFocus="WdatePicker({disabledDays:[0,6]})"/>
-	<br/>
-	无效日期 disabledDates (使用正则匹配)<br/>
-	<input id="d451" type="text" class="Wdate form-control" onFocus="WdatePicker({disabledDates:['5$']})"/>
-	
-	<br/>
-	<input id="d454" type="text" class="Wdate" onFocus="WdatePicker({minDate:'%y-%M-01',maxDate:'%y-%M-%ld',disabledDates:['0[4-7]$','1[1-5]$','2[58]$'],disabledDays:[1,3,6]})"/>
-	
-	<button class="btn btn-primary">bbb</button>
 </body>
 </html>
