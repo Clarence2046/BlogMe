@@ -129,7 +129,7 @@
 									</p>
 								</div>
 								<div style="float: right;">
-									<a class="btnr labelm" target="_blank">阅读全文</a>
+									<a class="btnr labelm" href="art_d?art=${article.blogId }" target="_blank">阅读全文</a>
 								</div>
 							</div>
 						</div>

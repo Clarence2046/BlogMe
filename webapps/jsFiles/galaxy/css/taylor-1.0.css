@@ -163,6 +163,13 @@ a:HOVER {
 	float: left;
 }
 
+.btn {
+	height:30px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 14px;
+	margin-top: 5px;
+}
 .btnm {
 	padding: 5px 10px;
 	border-radius: 5px;
@@ -251,4 +258,17 @@ ul,ol,li {
 	font-size: 14px;
 	line-height: 25px;
 	color: #6f6f6f;
+}
+
+.liug_choosed{
+	background-color: #f26868;
+}
+
+.searchBox{
+	height:30px;
+	border-radius: 4px 4px;
+	-webkit-box-shadow: #666 0px 0px 10px;
+	-moz-box-shadow: #666 0px 0px 10px;
+	box-shadow: #666 0px 0px 10px;
+	
 }

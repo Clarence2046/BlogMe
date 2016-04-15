@@ -25,7 +25,7 @@ public class AuthInterceptor implements Interceptor{
 				m.put("博客", "blog");
 				m.put("我的博客", "blog?isMyBlog=true");
 				m.put("测试页面", "test");
-				m.put("后台管理", "main");
+				m.put("后台管理", "backend_2016");
 				inv.getController().getSession().setAttribute("auths", m);
 				inv.invoke();
 			}

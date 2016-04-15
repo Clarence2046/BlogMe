@@ -8,4 +8,8 @@ import com.galaxy.taylor.model.base.BaseClassify;
 @SuppressWarnings("serial")
 public class Classify extends BaseClassify<Classify> {
 	public static final Classify dao = new Classify();
+	
+	public Classify  getClassifyByUrl(String url){
+		return dao.findFirst("select * from c_classify where url like ?" ,url);
+	}
 }

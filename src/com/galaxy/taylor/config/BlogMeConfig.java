@@ -49,7 +49,7 @@ public class BlogMeConfig extends JFinalConfig {
 			me.add("/test", GalaxyTestController.class,"views/test/");
 			
 			//后台管理
-			me.add("/main", GalaxyMgrController.class,"views/manage/");
+			me.add("/backend_2016", GalaxyMgrController.class,"views/manage/");
 			
 			//前台访问
 			me.add("/home", GalaxyHomeController.class,"views/front/home/");

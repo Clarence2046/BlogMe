@@ -100,6 +100,7 @@ public class GalaxyBlogController extends Controller {
 		redirect("/blog?isMyBlog=true");
 	}
 
+
 	/**
 	 * 查看文章详情
 	 */
@@ -280,7 +281,32 @@ public class GalaxyBlogController extends Controller {
 	
 	@ActionKey("mng_art")
 	public void manageArticles(){
+		//获取所有的文章
+		List<Blog> articles = Blog.getArticles("");
 		
+		setAttr("allArts", articles);
+		
+		
+		render("articles.jsp");
+		
+	}
+	
+	
+	/**
+	 * 删除文章
+	 */
+	@ActionKey("art_del")
+	public void deleteArt() {
+		String blogId = getPara("blogId");
+		
+		Blog blog = Blog.dao.findById(blogId);
+		
+		// 1:正常 2：删除
+		blog.setStatus(2);
+		
+		blog.update();
+		
+		redirect("/mng_art");
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.galaxy.taylor.controller.front;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import com.galaxy.taylor.interceptor.AuthInterceptor;
@@ -46,19 +48,45 @@ public class GalaxyHomeController extends Controller {
 	@ActionKey("liug")
 	public void liug() {
 		setAttr("viewPage", "liug");
-		//查询当前分类下的文章
-		String conditions = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by PublishTime desc";
-		List<Blog> articles = Blog.getArticles(conditions);
-		setAttr("articles", articles);
 		
-		//查询所有分类下标签
-		List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=1");
-		setAttr("classifies", classifies);
+		//获取typeid, 用户点击分类标签
+		String typeId = getPara("tid");
 		
-		//当前分类下阅读最多的文章(热门文章)
-		String conditions1 = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by views desc";
-		List<Blog> articles1 = Blog.getArticles(conditions1);
-		setAttr("hotarticles", articles1);
+		
+		//应该判断输入的字符是不是包含sql相关的语句,如果有空格,以空格为分隔符解析
+		String term = getPara("term");
+		
+		if(term!=null && !"".equals(term.trim())){
+			search(term);
+		}else{
+			//查询当前分类下的文章
+			String conditions = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by PublishTime desc";
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditions = " and (type = '"+intg+"') order by PublishTime desc";
+			}
+			
+			List<Blog> articles = Blog.getArticles(conditions);
+			setAttr("articles", articles);
+			
+			//查询所有分类下标签
+			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=1");
+			setAttr("classifies", classifies);
+			
+			//当前分类下阅读最多的文章(热门文章)
+			String conditions1 = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by views desc";
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditions1 = " and (type = '"+intg+"') order by views desc";
+			}
+			
+			List<Blog> articles1 = Blog.getArticles(conditions1);
+			setAttr("hotarticles", articles1);
+			
+			setAttr("choosedType", typeId);
+		}
+		
+		
 		
 		render("homePage.jsp");
 	}
@@ -82,20 +110,27 @@ public class GalaxyHomeController extends Controller {
 	public void hnbc() {
 		setAttr("viewPage", "hnbc");
 		
-		//查询当前分类下的文章
-		String conditions = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by PublishTime desc";
-		List<Blog> articles = Blog.getArticles(conditions);
-		setAttr("articles", articles);
 		
-		//查询所有分类下标签
-		List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=3");
-		setAttr("classifies", classifies);
+		//应该判断输入的字符是不是包含sql相关的语句,如果有空格,以空格为分隔符解析
+		String term = getPara("term");
 		
-		//当前分类下阅读最多的文章(热门文章)
-		String conditions1 = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by views desc";
-		List<Blog> articles1 = Blog.getArticles(conditions1);
-		setAttr("hotarticles", articles1);
-		
+		if(term!=null && !"".equals(term.trim())){
+			search(term);
+		}else{
+			//查询当前分类下的文章
+			String conditions = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by PublishTime desc";
+			List<Blog> articles = Blog.getArticles(conditions);
+			setAttr("articles", articles);
+			
+			//查询所有分类下标签
+			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=3");
+			setAttr("classifies", classifies);
+			
+			//当前分类下阅读最多的文章(热门文章)
+			String conditions1 = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by views desc";
+			List<Blog> articles1 = Blog.getArticles(conditions1);
+			setAttr("hotarticles", articles1);
+		}
 		render("homePage.jsp");
 	}
 	
@@ -107,20 +142,27 @@ public class GalaxyHomeController extends Controller {
 	public void zhaj() {
 		setAttr("viewPage", "zhaj");
 		
-		//查询当前分类下的文章
-		String conditions = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by PublishTime desc";
-		List<Blog> articles = Blog.getArticles(conditions);
-		setAttr("articles", articles);
 		
-		//查询所有分类下标签
-		List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=4");
-		setAttr("classifies", classifies);
+		//应该判断输入的字符是不是包含sql相关的语句,如果有空格,以空格为分隔符解析
+		String term = getPara("term");
 		
-		//当前分类下阅读最多的文章(热门文章)
-		String conditions1 = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by views desc";
-		List<Blog> articles1 = Blog.getArticles(conditions1);
-		setAttr("hotarticles", articles1);
-		
+		if(term!=null &&!"".equals(term.trim())){
+			search(term);
+		}else{
+			//查询当前分类下的文章
+			String conditions = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by PublishTime desc";
+			List<Blog> articles = Blog.getArticles(conditions);
+			setAttr("articles", articles);
+			
+			//查询所有分类下标签
+			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=4");
+			setAttr("classifies", classifies);
+			
+			//当前分类下阅读最多的文章(热门文章)
+			String conditions1 = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by views desc";
+			List<Blog> articles1 = Blog.getArticles(conditions1);
+			setAttr("hotarticles", articles1);
+		}
 		render("homePage.jsp");
 	}
 	
@@ -152,8 +194,27 @@ public class GalaxyHomeController extends Controller {
 	public void articleDetail(){
 		setAttr("viewPage", "art_detail");
 		
+		
 		String artNo = getPara("art");
 		Blog article = Blog.dao.findById(artNo);
+		
+		//获取是否有查询条目,高亮查询词语,jsp 对url进行了encodeURI 处理,所以在取值是需要转码,不然中文是乱码的
+		String term = getPara("t");
+		
+		String highlight = term;
+		if(term!=null && !"".equals(term.trim())){
+			try {
+				term =new String(term.getBytes("ISO-8859-1"),"UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			highlight = "<font color='red'>"+term+"</font>";
+			String blogContent = article.getBlogContent();
+			String newOne = blogContent.replace(term, highlight);
+			article.setBlogContent(newOne);
+		}
+		
+		
 		
 		Integer type = article.getType();
 		
@@ -201,4 +262,56 @@ public class GalaxyHomeController extends Controller {
 		render("userspace.jsp");
 	}
 
+	/**
+	 * 用户使用搜索功能
+	 */
+	private void search(String term){
+		
+		//获取从哪个分类下执行的查询
+		String page = getPara("page");
+		setAttr("viewPage", page);
+		
+		//获取page的分类编号
+		
+		Classify classify = new Classify();
+		classify = classify.getClassifyByUrl("%"+page+"%");
+		
+		if(classify==null){
+			System.out.println("未找到分类");
+			render("homePage.jsp");
+			return;
+		}
+		
+		if(term!=null && !"".equals(term.trim())){
+			setAttr("highlight", term);
+			String highlight = "<font color='red'>"+term+"</font>";
+			
+			//查询当前分类下的文章
+			String conditions = " and (type ='"+classify.getTypeId() +"' or type in (select typeId from c_classify where parentTypeId='"+classify.getTypeId() +"')) and ( blogContent like '%"+term+"%' or blogTitle like '%"+term+"%') order by PublishTime desc";
+			List<Blog> articles = Blog.getArticles(conditions);
+			setAttr("articles", articles);
+			
+			//对查询出的文章进行高亮处理
+			if(articles!=null){
+				for (Blog blog : articles) {
+					String blogContent = blog.getContentWithNoHtml();
+					String newOne = blogContent.replace(term, highlight);
+					blog.setContentWithNoHtml(newOne);
+				}
+			}
+			
+			
+			//查询所有分类下标签
+			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId='"+classify.getTypeId() +"'");
+			setAttr("classifies", classifies);
+			
+			//当前分类下阅读最多的文章(热门文章)
+			String conditions1 = " and (type ='"+classify.getTypeId() +"' or type in (select typeId from c_classify where parentTypeId='"+classify.getTypeId() +"')) order by views desc";
+			List<Blog> articles1 = Blog.getArticles(conditions1);
+			setAttr("hotarticles", articles1);
+			
+			
+		}
+	}
+	
 }

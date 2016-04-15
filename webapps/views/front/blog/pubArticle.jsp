@@ -60,13 +60,22 @@
 	});
 </script>
 
+<style type="text/css">
+label{
+	font-size: 14px
+
+}
+
+
+</style>
+
 </head>
 
 <!-- <body style="background-image: url('images/background.jpg');"> -->
 <body style="background-color: #d3eae7;">
 
 	<jsp:include page="../home/navibar.jsp"></jsp:include>
-	<div class="panel panel-default">
+	<div class="panel panel-default"  style="width: 60%;margin:0 auto">
 		<div class="panel-heading">
 			<h3 class="panel-title">发布新文章</h3>
 		</div>

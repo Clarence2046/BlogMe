@@ -3,9 +3,13 @@
 <%@page import="java.io.*"%>
 <%-- <%@page import="org.springframework.web.util.UriComponents"%> --%>
 <%@page import="java.net.URLDecoder"%>
+<%
+	String rootPath = pageContext.getServletContext().getRealPath("/") + "upload/";
+%>
+
 <%!// 本文件：/receive.jsp
 	// 图片存放路径
-	String photoPath = "D:/blog/upload/photo/";
+	String photoPath = "F:/personal/projects/blogMe/webapps/upload";
 	File photoPathFile = new File(photoPath);
 
 	// references: http://blog.csdn.net/remote_roamer/article/details/2979822

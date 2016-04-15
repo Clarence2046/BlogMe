@@ -4,6 +4,7 @@
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,13 @@
 <meta http-equiv="description" content="2013年8月8日,renfufei@qq.com">
 <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script>
+	if (!document.addEventListener) {
+	    // IE6~IE8
+	    document.write('<script src="jsFiles/ieBetter.js"><\/script>');	
+	}
+
+    var agent = navigator.userAgent.toLowerCase();
+
 	// 参数，最大高度
 	var MAX_HEIGHT = 100;
 	// 渲染
@@ -51,9 +59,12 @@
 	// 加载 图像文件(url路径)
 	function loadImage(src) {
 		// 过滤掉 非 image 类型的文件
-		if (!src.type.match(/image.*/)) {
+		console.log(src);
+		
+		var file = src.files[0];
+		if (!file.type.match(/image.*/)) {
 			if (window.console) {
-				console.log("选择的文件类型不是图片: ", src.type);
+				console.log("选择的文件类型不是图片: ", file.type);
 			} else {
 				window.confirm("只能选择图片文件");
 			}
@@ -91,7 +102,7 @@
 		console.log(dataurl);
 		//console.log(imagedata);
 		var data = {
-			imagename : "myImage.png",
+			imagename : document.getElementById("ff").files[0].name,
 			imagedata : imagedata
 		};
 		jQuery.ajax({
@@ -154,11 +165,88 @@
 			sendImage();
 		}, true);
 	};
-	window.addEventListener("DOMContentLoaded", function() {
-		//
-		init();
-	}, false);
+	function initIE() {
+		// 获取DOM元素对象
+		var target = document.getElementById("drop-target");
+		
+		
+		// 阻止 dragover(拖到DOM元素上方) 事件传递
+		target.attachEvent("ondragover", function(e) {
+			e.preventDefault();
+		});
+		// 拖动并放开鼠标的事件
+		target.attachEvent("ondrop", function(e) {
+			// 阻止默认事件，以及事件传播
+			e.preventDefault();
+			// 调用前面的加载图像 函数，参数为dataTransfer对象的第一个文件
+			loadImage(e.dataTransfer.files[0]);
+		});
+		var setheight = document.getElementById("setheight");
+		var maxheight = document.getElementById("maxheight");
+		setheight.attachEvent("onclick", function(e) {
+			//
+			var value = maxheight.value;
+			if (/^\d+$/.test(value)) {
+				MAX_HEIGHT = parseInt(value);
+			}
+			e.preventDefault();
+		});
+		var btnsend = document.getElementById("btnsend");
+		btnsend.attachEvent("onclick", function(e) {
+			//
+			sendImage();
+		});
+	};
+	
+	
+	var loadImageFile = (function () {
+		console.log(window.FileReader);
+		if (window.FileReader) {
+			var	oPreviewImg = null, oFReader = new window.FileReader(),
+				rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+	 
+			oFReader.onload = function (oFREvent) {
+				if (!oPreviewImg) {
+					var newPreview = document.getElementById("imagePreview");
+					oPreviewImg = new Image();
+					oPreviewImg.style.width = (newPreview.offsetWidth).toString() + "px";
+					oPreviewImg.style.height = (newPreview.offsetHeight).toString() + "px";
+					newPreview.appendChild(oPreviewImg);
+				}
+				oPreviewImg.src = oFREvent.target.result;
+			};
+	 
+			return function () {
+				var aFiles = document.getElementById("imageInput").files;
+				if (aFiles.length === 0) { return; }
+				if (!rFilter.test(aFiles[0].type)) { alert("You must select a valid image file!"); return; }
+				oFReader.readAsDataURL(aFiles[0]);
+			}
+	 
+		}
+		if (navigator.appName === "Microsoft Internet Explorer") {
+			return function () {
+				console.log(document.getElementById("imageInput").value);
+				var fileupload = document.getElementById("imageInput");
+				 fileupload.select();
+                 filepath = document.selection.createRange().text;
+				document.getElementById("myCanvas").filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = filepath;
+				render(filepath);
+	 
+			}
+		}
+	})();
+
 </script>
+<style type="text/css"> 
+#myCanvas {
+	width: 160px;
+	height: 120px;
+	float: right;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
+}
+</style>
+
 </head>
 <body>
 	<div>
@@ -167,21 +255,25 @@
 		<div>
 			<input type="text" id="maxheight" value="100" />
 			<button id="setheight">设置图片最大高度</button>
-			<input type="hidden" name="action" value="views/test/server.jsp" />
+			<input type="hidden" name="action" value="server.jsp" />
 		</div>
+		
 		<div id="preview-row">
 			<div id="drop-target"
 				style="width:400px;height:200px;min-height:100px;min-width:200px;background:#eee;cursor:pointer;">拖动图片文件到这里...</div>
 			<div>
 				<div>
-					<button id="btnsend">上 传</button>
+				<input id="imageInput" type="file" name="myPhoto" onchange="loadImageFile();" /><br />
+				
+					<!-- <input type="file"  name="ff" id="ff" onchange="loadImage(this)"> -->
+					<button id="btnsend" onclick="sendImage()">上 传</button>
 					<span id="tip2" style="padding:8px 0;color:#f00;"></span>
 				</div>
 			</div>
 			<div>
 				<h4>缩略图：</h4>
 			</div>
-			<div id="preview"
+			<div id="imagePreview"
 				style="background:#f4f4f4;width:400px;height:200px;min-height:100px;min-width:200px;">
 				<canvas id="myCanvas"></canvas>
 			</div>

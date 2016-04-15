@@ -24,6 +24,16 @@
 
 <script type="text/javascript" src="jsFiles/jquery/jquery-2.2.0.min.js"></script>
 
+<script type="text/javascript">
+function doGo(url){
+	
+	var u = encodeURI(url);
+	window.location.href = u;
+	
+}
+
+</script>
+
 </head>
 
 
@@ -35,7 +45,7 @@
 				<c:forEach items="${articles }" begin="0" end="5" varStatus="status" var="article">
 					<div style="clear: both;height: 160px">
 						<p style="font-size: medium;">
-							<a href="art_d?art=${article.blogId }" target="_blank">${article.blogTitle }</a> <br />
+							<a href="javascript:void(0)" onclick="doGo('art_d?art=${article.blogId }&t=${highlight}')" >${article.blogTitle }</a> <br />
 							<font size="2" color="#aaa">时间：${article.publishTime } 作者：${article.user.username } 分类：${article.classify.description }</font>
 						</p>
 						<div>
@@ -54,7 +64,7 @@
 								
 							</div>
 							<div style="float: right;">
-								<a class="btnr labelm" target="_blank">阅读全文</a>
+								<a class="btnr labelm" href="javascript:void(0)" onclick="doGo('art_d?art=${article.blogId }&t=${highlight}')" >阅读全文</a>
 							</div>
 						</div>
 					</div>
@@ -64,10 +74,23 @@
 			<br />
 		</div>
 		<div class="right" style="width: 32%;margin-left: 15px">
+			<div style="margin-bottom: 5px;text-align: center;">
+				<form action="${viewPage }" method="post">
+					<input type="hidden" id="page"  name="page" value="${viewPage }">
+					<input type="text" id="searchTerm"  class="searchBox" name="term" maxlength="10" value="${highlight }">&nbsp;&nbsp;<button class="btn">搜索</button>
+				</form>
+			</div>
 			<div class="title">分类标签</div>
 			<div style="min-height: 50px">
 				<c:forEach items="${classifies }" var="classify">
-					<a href="http://www.baidu.com" class="btnm labelm" target="_blank">${classify.description }</a>
+					<c:choose>
+						<c:when test="${choosedType == classify.typeId}">
+							<a href="liug?tid=${classify.typeId }" class="btnm labelm active" target="_blank">${classify.description }</a>
+						</c:when>
+						<c:otherwise>
+							<a href="liug?tid=${classify.typeId }" class="btnm labelm" target="_blank">${classify.description }</a>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</div>
 			<div class="title">热门文章</div>
