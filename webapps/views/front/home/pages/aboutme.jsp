@@ -42,24 +42,7 @@
 		<div class="left" style="width: 100%; border-right: thin dashed #aaa;padding-right: 15px">
 			<!-- <div align="left" class="title">所有文章</div> -->
 			<div id="new_article" style="width: 100%">
-				<div style="float: left;margin-left: 100px;">
-				<c:forEach begin="0"  end="5" varStatus="vs">
-					<div style="margin-left: 100px;margin-top: 30px;">
-						2016-10-10	
-					</div>
-				</c:forEach>
-				</div>
-				<div style="width: 10px;min-height:300px ;background-color: red;margin-left: 10px;margin-top: 10px;float: left;">
-				</div>
-				<div style="float: left;margin-left: 10px;">
-					<c:forEach begin="0"  end="5" varStatus="vs">
-					<div  style="float: left;margin-top: 30px;width: 1px;border-bottom:1px solid black;width: 20px;margin-left: -10px;"></div>
-					<div style="margin-left: 10px;margin-top: 30px;border-radius: 0px 8px 8px 8px; border: 1px solid black;width: 300px;">
-						大事记
-					</div>
-				</c:forEach>
-				</div>
-				
+				 ${aboutme.blogContent }
 			</div>
 			
 			

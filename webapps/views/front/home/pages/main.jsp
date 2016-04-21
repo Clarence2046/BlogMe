@@ -31,21 +31,22 @@
 	<div id="leftDiv1" class="left">
 		<div align="left" class="title">文章分类</div>
 		<div>
-			<c:forEach begin="1" end="5" varStatus="status">
-				<a href="home" target="_blank">分类 ${status.index }</a>
+			<c:forEach items="${classifies }" var="classify" varStatus="status">
+				<a href="${classify.url }?tid=${classify.typeId }" target="_blank"> ${classify.description }</a>
 				<div class="sep_solid"></div>
 			</c:forEach>
 		</div>
 		<div align="left" class="title" style="margin-top: 15px">热门文章</div>
 		<div>
-			<c:forEach begin="1" end="5" varStatus="status">
-				<a href="home">火星移民 ${status.index }</a>
+			<c:forEach items="${hotarticles }" begin="0" end="4" var="article" varStatus="status">
+				<a href="art_d?art=${article.blogId }">${ article.blogTitle}</a>
 				<div class="sep_solid"></div>
 			</c:forEach>
 		</div>
 		<div align="left" class="title" style="margin-top: 15px">友情链接</div>
 		<div style="margin-top: 10px;overflow: hidden;" id="recommend">
 			<!-- <span class="inshadow" style="width: 80px;height: 30px"></span> -->
+			<a href="http://lgsy.duoshuo.com/admin/" class="btnm labelm" target="_blank">我的多说</a>
 			<a href="http://www.baidu.com" class="btnm labelm" target="_blank">百度一下</a>
 			<a href="http://www.baidu.com" class="btnm labelm" target="_blank">百度云盘</a>
 			<a href="http://www.baidu.com" class="btnm labelm" target="_blank">CSDN</a>
@@ -156,11 +157,35 @@
 
 	<div id="rightDiv1" class="right">
 		<div class="title">推荐文章</div>
-		<div>
+		<div style="height: 249px;">
 			<c:forEach begin="1" end="5" varStatus="status">
 				<a href="home"> 银河系漫游指南 ${status.index }</a>
 				<br />
 			</c:forEach>
+		</div>
+		<div class="title">最新评论</div>
+		<div style="min-height: 249px;">
+			<!-- 多说最新评论 start -->
+			<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+			<!-- 多说最新评论 end -->
+			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+			<script type="text/javascript">
+			var duoshuoQuery = {short_name:"lgsy"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+					 || document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
+				</script>
+			<!-- 多说公共JS代码 end -->
+		</div>
+		<div class="title">关注我</div>
+		<div style="height: 249px;text-align: center;"><img alt="" width="160" height="160" src="images/weixins.png">
+			<br/>
+			<font style="font-size: 12px;">扫一扫,关注我们</font>
 		</div>
 	</div>
 </body>

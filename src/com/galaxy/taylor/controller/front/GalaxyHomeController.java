@@ -1,15 +1,15 @@
 package com.galaxy.taylor.controller.front;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import com.galaxy.taylor.interceptor.AuthInterceptor;
 import com.galaxy.taylor.model.Blog;
 import com.galaxy.taylor.model.Classify;
 import com.galaxy.taylor.model.User;
 import com.galaxy.taylor.util.Constants;
-import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.core.ActionKey;
 import com.jfinal.core.Controller;
@@ -23,6 +23,8 @@ import com.jfinal.core.Controller;
 
 @Clear
 public class GalaxyHomeController extends Controller {
+	private int pagesize = 3;
+	
 	
 	/**
 	 * 个人主页 >>首页
@@ -38,6 +40,24 @@ public class GalaxyHomeController extends Controller {
 			
 			setAttr("articles", articles);
 			
+			//获取热门文章
+			conditions = " order by views desc";
+			List<Blog> hots = Blog.getArticles(conditions );
+			
+			setAttr("hotarticles", hots);
+			
+			//获取分类标签
+			
+			List<Classify> classifies = Classify.dao.find("select c.typeId, c.parentTypeId, c.description,cp.url from c_classify c, c_classify cp where c.parenttypeid=cp.typeid");
+			for (Classify classify : classifies) {
+				System.out.println(classify.getUrl()+"?tid="+classify.getTypeId());
+			}
+			
+			setAttr("classifies", classifies);
+			
+			
+			//获取推荐文章,后台自己设定的一个标记,尚未做
+			
 			render("homePage.jsp");
 	}
 	
@@ -52,21 +72,45 @@ public class GalaxyHomeController extends Controller {
 		//获取typeid, 用户点击分类标签
 		String typeId = getPara("tid");
 		
+		//获取分页,每页展示8篇文章
+		String para = getPara("currentPage");
+		String limit = " limit 0,"+pagesize;
+		
+		setAttr("currentPage", 1);
+		setAttr("pagesize", pagesize);
+		if(para!=null && !"".equals(para)){
+			int curPage = Integer.valueOf(para);
+			int pageBegin = (curPage-1) * pagesize;
+			limit = " limit "+pageBegin+","+pagesize;
+			setAttr("currentPage", curPage);
+		}
 		
 		//应该判断输入的字符是不是包含sql相关的语句,如果有空格,以空格为分隔符解析
 		String term = getPara("term");
 		
 		if(term!=null && !"".equals(term.trim())){
-			search(term);
+			setAttr("term", term);
+			search(term,limit);
 		}else{
 			//查询当前分类下的文章
-			String conditions = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by PublishTime desc";
+			String conditions = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by PublishTime desc "+limit;
 			if(typeId!=null && typeId!=""){
 				Integer intg = Integer.valueOf(typeId);
-				conditions = " and (type = '"+intg+"') order by PublishTime desc";
+				conditions = " and (type = '"+intg+"') order by PublishTime desc "+limit;
+			}
+			
+			String conditionsc = " and (type =1 or type in (select typeId from c_classify where parentTypeId=1)) order by PublishTime desc ";
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditionsc = " and (type = '"+intg+"') order by PublishTime desc";
 			}
 			
 			List<Blog> articles = Blog.getArticles(conditions);
+			
+			int count = Blog.getArticlesCount(conditionsc);
+			
+			setAttr("totalPages", count%pagesize==0?count/pagesize:(count/pagesize+1));
+			
 			setAttr("articles", articles);
 			
 			//查询所有分类下标签
@@ -110,17 +154,48 @@ public class GalaxyHomeController extends Controller {
 	public void hnbc() {
 		setAttr("viewPage", "hnbc");
 		
+		//获取typeid, 用户点击分类标签
+		String typeId = getPara("tid");
 		
 		//应该判断输入的字符是不是包含sql相关的语句,如果有空格,以空格为分隔符解析
 		String term = getPara("term");
 		
+		//获取分页,每页展示8篇文章
+		String para = getPara("currentPage");
+		String limit = " limit 0,"+pagesize;
+		setAttr("currentPage", 1);
+		setAttr("pagesize", pagesize);
+		if(para!=null && !"".equals(para)){
+			int curPage = Integer.valueOf(para);
+			int pageBegin = (curPage-1) * pagesize;
+			limit = " limit "+pageBegin+","+pagesize;
+			setAttr("currentPage", curPage);
+		}
+		
 		if(term!=null && !"".equals(term.trim())){
-			search(term);
+			search(term,limit);
 		}else{
 			//查询当前分类下的文章
-			String conditions = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by PublishTime desc";
+			String conditions = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by PublishTime desc" +limit;
+			
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditions = " and (type = '"+intg+"') order by PublishTime desc "+limit;
+			}
+			
 			List<Blog> articles = Blog.getArticles(conditions);
 			setAttr("articles", articles);
+			
+			
+			String conditionsc = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by PublishTime desc" ;
+			
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditionsc = " and (type = '"+intg+"') order by PublishTime desc ";
+			}
+			int count = Blog.getArticlesCount(conditionsc);
+			
+			setAttr("totalPages", count%pagesize==0?count/pagesize:(count/pagesize+1));
 			
 			//查询所有分类下标签
 			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=3");
@@ -128,8 +203,16 @@ public class GalaxyHomeController extends Controller {
 			
 			//当前分类下阅读最多的文章(热门文章)
 			String conditions1 = " and (type =3 or type in (select typeId from c_classify where parentTypeId=3)) order by views desc";
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditions1 = " and (type = '"+intg+"') order by views desc";
+			}
+			
+			
 			List<Blog> articles1 = Blog.getArticles(conditions1);
 			setAttr("hotarticles", articles1);
+			
+			setAttr("choosedType", typeId);
 		}
 		render("homePage.jsp");
 	}
@@ -143,16 +226,48 @@ public class GalaxyHomeController extends Controller {
 		setAttr("viewPage", "zhaj");
 		
 		
+		//获取typeid, 用户点击分类标签
+		String typeId = getPara("tid");
+		
 		//应该判断输入的字符是不是包含sql相关的语句,如果有空格,以空格为分隔符解析
 		String term = getPara("term");
 		
+		//获取分页,每页展示8篇文章
+		String para = getPara("currentPage");
+		
+		String limit = " limit 0,"+pagesize;
+		setAttr("currentPage", 1);
+		setAttr("pagesize", pagesize);
+		if(para!=null && !"".equals(para)){
+			int curPage = Integer.valueOf(para);
+			int pageBegin = (curPage-1) * pagesize;
+			limit = " limit "+pageBegin+","+pagesize;
+			setAttr("currentPage", curPage);
+		}
+
+		
 		if(term!=null &&!"".equals(term.trim())){
-			search(term);
+			search(term,limit);
 		}else{
 			//查询当前分类下的文章
-			String conditions = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by PublishTime desc";
+			String conditions = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by PublishTime desc" +limit;
+			
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditions = " and (type = '"+intg+"') order by PublishTime desc "+limit;
+			}
+			
 			List<Blog> articles = Blog.getArticles(conditions);
 			setAttr("articles", articles);
+			
+			String conditionsc = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by PublishTime desc" ;
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditionsc = " and (type = '"+intg+"') order by PublishTime desc ";
+			}
+			int count = Blog.getArticlesCount(conditionsc);
+			
+			setAttr("totalPages", count%pagesize==0?count/pagesize:(count/pagesize+1));
 			
 			//查询所有分类下标签
 			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=4");
@@ -160,8 +275,15 @@ public class GalaxyHomeController extends Controller {
 			
 			//当前分类下阅读最多的文章(热门文章)
 			String conditions1 = " and (type =4 or type in (select typeId from c_classify where parentTypeId=4)) order by views desc";
+			if(typeId!=null && typeId!=""){
+				Integer intg = Integer.valueOf(typeId);
+				conditions = " and (type = '"+intg+"') order by views desc ";
+			}
+			
 			List<Blog> articles1 = Blog.getArticles(conditions1);
 			setAttr("hotarticles", articles1);
+			
+			setAttr("choosedType", typeId);
 		}
 		render("homePage.jsp");
 	}
@@ -173,6 +295,10 @@ public class GalaxyHomeController extends Controller {
 	@ActionKey("gyuw")
 	public void aboutme() {
 		setAttr("viewPage", "gyuw");
+		
+		Blog aboutme = Blog.dao.findFirst("select cb.* from c_blog cb, c_classify cc where (cb.type=cc.typeId and cc.url='gyuw' ) ");
+		
+		setAttr("aboutme", aboutme);
 		render("homePage.jsp");
 	}
 	
@@ -187,13 +313,14 @@ public class GalaxyHomeController extends Controller {
 	}
 	
 	
+	private static final Map<Integer,Map<Integer,Blog>> cacheBlogMap = new ConcurrentHashMap<Integer, Map<Integer,Blog>>();
+	
 	/**
 	 * 文章详情
 	 */
 	 @ActionKey("art_d")
 	public void articleDetail(){
 		setAttr("viewPage", "art_detail");
-		
 		
 		String artNo = getPara("art");
 		Blog article = Blog.dao.findById(artNo);
@@ -212,6 +339,8 @@ public class GalaxyHomeController extends Controller {
 			String blogContent = article.getBlogContent();
 			String newOne = blogContent.replace(term, highlight);
 			article.setBlogContent(newOne);
+			
+			setAttr("term", term);
 		}
 		
 		
@@ -232,6 +361,44 @@ public class GalaxyHomeController extends Controller {
 			List<Classify> classifies = Classify.dao.find("select * from c_classify where parentTypeId=?",parentTypeId);
 			setAttr("classifies", classifies);
 		}
+		
+		//当前选中文章的索引
+		Integer cindex = 1;
+		if(getPara("currentIndex")!=null){
+			
+			 cindex =Integer.valueOf(getPara("currentIndex"));
+		}
+		if(cacheBlogMap.get(type)==null){
+			Map<Integer,Blog> map = new HashMap<Integer,Blog>();
+			//查询所有文章,放入map : pre cur  nex
+			List<Blog> articles = Blog.getArticles(" and type='"+type+"' order by publishtime desc");
+			
+			if(articles!=null && articles.size()>0){
+				int index = 0;
+				for (Blog blog : articles) {
+					map.put(++index, blog);
+					if(blog.getBlogId().equals(article.getBlogId())){
+						cindex = index;
+						setAttr("currentIndex", index);
+					}
+				}
+			}
+			
+			setAttr("pre", map.get(cindex-1));
+			setAttr("next", map.get(cindex+1));
+			
+			cacheBlogMap.put(type, map);
+		}else{
+			Map<Integer, Blog> map = cacheBlogMap.get(type);
+			
+			setAttr("pre", map.get(cindex-1));
+			setAttr("next", map.get(cindex+1));
+			
+			setAttr("currentIndex", cindex);
+		}
+		
+		
+		
 		setAttr("bread_third", classify.getDescription());
 		
 		setAttr("article", article);
@@ -265,7 +432,7 @@ public class GalaxyHomeController extends Controller {
 	/**
 	 * 用户使用搜索功能
 	 */
-	private void search(String term){
+	private void search(String term, String limit){
 		
 		//获取从哪个分类下执行的查询
 		String page = getPara("page");
@@ -287,9 +454,14 @@ public class GalaxyHomeController extends Controller {
 			String highlight = "<font color='red'>"+term+"</font>";
 			
 			//查询当前分类下的文章
-			String conditions = " and (type ='"+classify.getTypeId() +"' or type in (select typeId from c_classify where parentTypeId='"+classify.getTypeId() +"')) and ( blogContent like '%"+term+"%' or blogTitle like '%"+term+"%') order by PublishTime desc";
+			String conditions = " and (type ='"+classify.getTypeId() +"' or type in (select typeId from c_classify where parentTypeId='"+classify.getTypeId() +"')) and ( blogContent like '%"+term+"%' or blogTitle like '%"+term+"%') order by PublishTime desc" +limit;
 			List<Blog> articles = Blog.getArticles(conditions);
 			setAttr("articles", articles);
+			
+			String conditionsc = " and (type ='"+classify.getTypeId() +"' or type in (select typeId from c_classify where parentTypeId='"+classify.getTypeId() +"')) and ( blogContent like '%"+term+"%' or blogTitle like '%"+term+"%') order by PublishTime desc";
+			int count = Blog.getArticlesCount(conditionsc);
+			
+			setAttr("totalPages", count%pagesize==0?count/pagesize:(count/pagesize+1));
 			
 			//对查询出的文章进行高亮处理
 			if(articles!=null){

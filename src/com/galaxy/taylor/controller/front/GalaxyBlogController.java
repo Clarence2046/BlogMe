@@ -309,5 +309,25 @@ public class GalaxyBlogController extends Controller {
 		redirect("/mng_art");
 	}
 	
+	@ActionKey("art_edit")
+	public void editArt(){
+		String bid = getPara("blogId");
+		
+		if(bid!=null){
+			Integer id = Integer.valueOf(bid);
+			Blog blog = Blog.dao.findById(id);
+			
+			setAttr("blog", blog);
+		}
+		render("editArticle.jsp");
+	}
+	
+	@ActionKey("upd_art")
+	public void updateArt(){
+		Blog blog = getModel(Blog.class);
+		
+		blog.update();
+		redirect("/mng_art");
+	}
 	
 }

@@ -213,7 +213,7 @@
 									success:  function(data){
 										
 										var appentComment = "<span><a href='javascript:void(0)'>${loginUser.username}</a>"
-											+" <fmt:formatDate value='<\%=new Date() %>'  type='date' pattern='yyyy-MM-dd HH:mm:ss'/> "
+											+" <fmt:formatDate value='<%=new Date() %>'  type='date' pattern='yyyy-MM-dd HH:mm:ss'/> "
 										 +"<br/>"+editor.html()+"</span><hr/>";
 										
 										

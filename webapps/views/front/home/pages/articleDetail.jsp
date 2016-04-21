@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -40,15 +41,53 @@
 			<div id="new_article" style="width: 100%;min-height: 780px">
 				<p style="font-size: medium;text-align: center;">
 					${article.blogTitle }  <br />
-					<font size="2" color="#aaa">时间：${article.publishTime } 作者：${article.user.username } 分类：${article.classify.description }</font>
+					<font size="2" color="#aaa">时间：<fmt:formatDate value="${article.publishTime }" pattern="yyyy-MM-dd HH:mm"/> 
+					 作者：${article.user.username } 分类：${article.classify.description }</font>
 				</p>
 				<div style="border-bottom-style: dashed;border-bottom-width: thin;margin-top: 20px;border-bottom-color: #aaa;"></div>
-				${article.blogContent }
+				<span style="clear: both;">${article.blogContent }</span>
 			</div>
 			<div style="border-bottom-style: dashed;border-bottom-width: thin;margin-top: 20px;border-bottom-color: #aaa;"></div>
-			<div>上一篇:</div>
-			<div>下一篇:</div>
+			<div>上一篇:
+			<c:choose>
+				<c:when test="${empty pre }">
+					已经没有了
+				</c:when>
+				<c:otherwise>
+					<a href="art_d?art=${pre.blogId }&currentIndex=${currentIndex-1}">${pre.blogTitle }</a>
+				</c:otherwise>
+			</c:choose>
+			
+			</div>
+			<div>下一篇:
+			<c:choose>
+				<c:when test="${empty next }">
+					已经没有了
+				</c:when>
+				<c:otherwise>
+					<a href="art_d?art=${next.blogId }&currentIndex=${currentIndex+1}">${next.blogTitle }</a>
+				</c:otherwise>
+			</c:choose>
+			
+			</div>
 			<div style="border-bottom-style: dashed;border-bottom-width: thin;margin-top: 10px;border-bottom-color: #aaa;"></div>
+			<!-- 多说评论框 start -->
+				<div class="ds-thread" data-thread-key="${article.blogId }" data-title="${article.blogTitle }" data-url="http://localhost:8080/Galaxy/art_d?art=${article.blogId }&t=${term}"></div>
+			<!-- 多说评论框 end -->
+			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+			<script type="text/javascript">
+			var duoshuoQuery = {short_name:"lgsy"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+					 || document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
+				</script>
+			<!-- 多说公共JS代码 end -->
+			
 			<div style="border-bottom-style: dashed;border-bottom-width: thin;margin-top: 10px;border-bottom-color: #aaa;"></div>
 		</div>
 		<div class="right" style="width: 32%;margin-left: 15px">
@@ -66,9 +105,43 @@
 				</c:forEach>
 			</div>
 			<div class="title">热门文章</div>
-			<div style="height: 249px"></div>
-			<div class="title">评论最多</div>
-			<div style="height: 249px"></div>
+			<div style="height: 249px">
+			<!-- 多说热评文章 start -->
+			<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+			<!-- 多说热评文章 end -->
+			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+			<script type="text/javascript">
+			var duoshuoQuery = {short_name:"lgsy"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+					 || document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
+				</script>
+			<!-- 多说公共JS代码 end -->
+			</div>
+			<div class="title">最新评论</div>
+			<div style="min-height: 249px">
+			<!-- 多说最新评论 start -->
+				<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+			<!-- 多说最新评论 end -->
+			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+			<script type="text/javascript">
+			var duoshuoQuery = {short_name:"lgsy"};
+				(function() {
+					var ds = document.createElement('script');
+					ds.type = 'text/javascript';ds.async = true;
+					ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+					ds.charset = 'UTF-8';
+					(document.getElementsByTagName('head')[0] 
+					 || document.getElementsByTagName('body')[0]).appendChild(ds);
+				})();
+				</script>
+			<!-- 多说公共JS代码 end -->
+			</div>
 			
 			<div align="left" class="title" style="margin-top: 15px">友情链接</div>
 			<div style="margin-top: 10px;overflow: hidden;" id="recommend">

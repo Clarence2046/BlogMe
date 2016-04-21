@@ -130,6 +130,12 @@ function activeNav(navItems){
 			<c:if test="${viewPage == 'art_detail' }">
 				<jsp:include page="pages/articleDetail.jsp"></jsp:include>
 			</c:if>
+			<c:if test="${viewPage == 'gyuw' }">
+				<jsp:include page="pages/aboutme.jsp"></jsp:include>
+			</c:if>
+			<c:if test="${viewPage == 'lius' }">
+				<jsp:include page="pages/lius.jsp"></jsp:include>
+			</c:if>
 		
 			
 
@@ -141,6 +147,7 @@ function activeNav(navItems){
 			版权所有<br />备案号：201601012234
 
 		</div>
+		<div id="staticfoot" class="fixedBottom"></div>
 	</div>
 
 	<%-- 百度分享 --%>
@@ -195,7 +202,6 @@ function activeNav(navItems){
 			} else {
 				$(".nav").removeClass("fixTop");
 			}
-
 		}
 	</script>
 

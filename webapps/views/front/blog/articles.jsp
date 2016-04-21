@@ -88,9 +88,17 @@
 			<c:forEach items="${allArts }" var="blog">
 				<span> <label style="width: 100%"><a
 						href="blog/blogDetail?blogId=${blog.blogId }">${blog.blogTitle
-							}</a> <a href="art_del?blogId=${blog.blogId }"> <span
+							}</a> 
+						<a href="art_del?blogId=${blog.blogId }"> 
+							<span
 							class="glyphicon glyphicon-trash" style="float: right;"></span>
-					</a> <br /> </label><br />
+						</a> 
+						<a href="art_edit?blogId=${blog.blogId }"> 
+							<span
+							class="glyphicon glyphicon-edit" style="margin-left: 100px;"></span>
+						</a> 
+						<br /> 
+					</label><br />
 				</span>
 				<span id="listBlogContents"><c:choose>
 						<c:when test="${ empty blog.contentWithNoHtml }">
