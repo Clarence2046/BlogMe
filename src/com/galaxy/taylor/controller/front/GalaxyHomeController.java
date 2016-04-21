@@ -401,6 +401,16 @@ public class GalaxyHomeController extends Controller {
 		
 		setAttr("bread_third", classify.getDescription());
 		
+		
+		// 如果是不同用户查看则增加查看次数
+		String sessionId = getSession().getId();
+		Object exist = getSession().getAttribute("viewer" + sessionId);
+		if (exist == null) {
+			article.setViews(article.getViews() + 1);
+			article.update();
+			getSession().setAttribute("viewer" + sessionId, "true");
+		}
+		
 		setAttr("article", article);
 		
 		render("homePage.jsp");

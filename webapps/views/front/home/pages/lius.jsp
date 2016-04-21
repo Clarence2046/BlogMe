@@ -42,7 +42,7 @@
 		<div class="left" style="width: 100%; border-right: thin dashed #aaa;padding-right: 15px">
 			<!-- <div align="left" class="title">所有文章</div> -->
 			<!-- 多说评论框 start -->
-				<div class="ds-thread" data-thread-key="1" data-title="all" data-url="#"></div>
+				<div class="ds-thread" data-thread-key="1" data-title="留声" data-url="http://localhost:8080/Galaxy/lius"></div>
 			<!-- 多说评论框 end -->
 			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 			<script type="text/javascript">

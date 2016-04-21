@@ -281,11 +281,11 @@ function doGo(url){
 					<div class="sep_solid"></div>
 				</c:forEach>
 			</div>
-			<div class="title">最新评论</div>
+			<div class="title">评论最多</div>
 			<div style="min-height: 249px">
-			<!-- 多说最新评论 start -->
-				<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
-			<!-- 多说最新评论 end -->
+				<!-- 多说热评文章 start -->
+			<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+			<!-- 多说热评文章 end -->
 			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 			<script type="text/javascript">
 			var duoshuoQuery = {short_name:"lgsy"};

@@ -42,7 +42,7 @@
 				<p style="font-size: medium;text-align: center;">
 					${article.blogTitle }  <br />
 					<font size="2" color="#aaa">时间：<fmt:formatDate value="${article.publishTime }" pattern="yyyy-MM-dd HH:mm"/> 
-					 作者：${article.user.username } 分类：${article.classify.description }</font>
+					 作者：${article.user.username } 分类：${article.classify.description } &nbsp;&nbsp;${article.views }次查看</font>
 				</p>
 				<div style="border-bottom-style: dashed;border-bottom-width: thin;margin-top: 20px;border-bottom-color: #aaa;"></div>
 				<span style="clear: both;">${article.blogContent }</span>
@@ -123,11 +123,11 @@
 				</script>
 			<!-- 多说公共JS代码 end -->
 			</div>
-			<div class="title">最新评论</div>
+			<div class="title">评论最多</div>
 			<div style="min-height: 249px">
-			<!-- 多说最新评论 start -->
-				<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
-			<!-- 多说最新评论 end -->
+			<!-- 多说热评文章 start -->
+			<div class="ds-top-threads" data-range="daily" data-num-items="5"></div>
+			<!-- 多说热评文章 end -->
 			<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 			<script type="text/javascript">
 			var duoshuoQuery = {short_name:"lgsy"};
