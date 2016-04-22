@@ -39,6 +39,11 @@ $(function(){
 			items:'home|liug|suiy|hnbc|zhaj|gyuw|lius'
 	};
 	activeNav(navItem);
+	
+	$(".nav ul li").bind("click",function(){
+		console.log($(this).find("a").attr("href"));
+		window.location.href=$(this).find("a").attr("href");
+	});
 })
 
 
@@ -122,9 +127,11 @@ function activeNav(navItems){
 			</c:if>
 			<c:if test="${viewPage == 'liug' || viewPage == 'zhaj' || viewPage == 'hnbc' }">
 				<jsp:include page="pages/liug.jsp"></jsp:include>
+				
 			</c:if>
 			<c:if test="${viewPage == 'suiy' }">
 				<jsp:include page="pages/suiy.jsp"></jsp:include>
+			
 			</c:if>
 			
 			<c:if test="${viewPage == 'art_detail' }">
@@ -136,7 +143,28 @@ function activeNav(navItems){
 			<c:if test="${viewPage == 'lius' }">
 				<jsp:include page="pages/lius.jsp"></jsp:include>
 			</c:if>
-		
+				<script type="text/javascript">
+				<!--
+					var title = "";
+					if(${viewPage == 'home' }){
+						title = "主页_taylor的个人博客";
+					}else if(${viewPage == 'liug'}){
+						title = "流光_taylor的个人博客";
+					}else if(${viewPage == 'suiy'}){
+						title = "岁月_taylor的个人博客";
+					}else if(${viewPage == 'zhaj'}){
+						title = "札记_taylor的个人博客";
+					}else if(${viewPage == 'hnbc'}){
+						title = "海纳百川_taylor的个人博客";
+					}else if(${viewPage == 'gyuw'}){
+						title = "关于我_taylor的个人博客";
+					}else if(${viewPage == 'lius'}){
+						title = "留声_taylor的个人博客";
+					}
+					
+					document.title = title;
+				//-->
+				</script>
 			
 
 			

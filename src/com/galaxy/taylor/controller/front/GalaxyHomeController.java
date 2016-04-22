@@ -33,9 +33,9 @@ public class GalaxyHomeController extends Controller {
 	public void index() {
 			setAttr("viewPage", "home");
 		
-			User user = User.dao.findFirst("select * from c_user where username='admin'");
+			User user = User.dao.findFirst("select * from c_user where username='admin' ");
 			
-			String conditions = " order by PublishTime desc";
+			String conditions = " and type not in (2,5,6) order by PublishTime desc";
 			List<Blog> articles = Blog.getArticles(conditions );
 			
 			setAttr("articles", articles);

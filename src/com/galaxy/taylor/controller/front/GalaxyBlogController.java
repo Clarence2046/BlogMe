@@ -1,7 +1,9 @@
 package com.galaxy.taylor.controller.front;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.galaxy.taylor.interceptor.AuthInterceptor;
 import com.galaxy.taylor.model.Blog;
@@ -176,6 +178,15 @@ public class GalaxyBlogController extends Controller {
 		//子分类
 		List<Classify>  cclassify = Classify.dao.find("select * from c_classify where parentTypeId is not null");
 		setAttr("children", cclassify);
+		
+		
+		//一个map
+		
+		Map map = new HashMap();
+		map.put("key1", null);
+		setAttr("mm", map);
+		
+		
 		render("pubArticle.jsp");
 	}
 	

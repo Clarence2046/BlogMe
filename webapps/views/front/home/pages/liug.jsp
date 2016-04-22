@@ -247,7 +247,7 @@ function doGo(url){
 				</c:choose>
 			</div>
 			
-			<form action="liug" method="post" id="doPage">
+			<form action="${viewPage }" method="post" id="doPage">
 				<input type="hidden"  value="${choosedType }"  name="tid" alt="选中的分类编号">
 				<input type="hidden"  value="${term }"  name="term" alt="搜索的关键字">
 				<input type="hidden"  value="${currentPage }"  name="currentPage" id="curpage" alt="分页当前页">
@@ -266,10 +266,10 @@ function doGo(url){
 				<c:forEach items="${classifies }" var="classify">
 					<c:choose>
 						<c:when test="${choosedType == classify.typeId}">
-							<a href="liug?tid=${classify.typeId }" class="btnm labelm active" target="_blank">${classify.description }</a>
+							<a href="${viewPage }?tid=${classify.typeId }" class="btnm labelm active" target="_blank">${classify.description }</a>
 						</c:when>
 						<c:otherwise>
-							<a href="liug?tid=${classify.typeId }" class="btnm labelm" target="_blank">${classify.description }</a>
+							<a href="${viewPage }?tid=${classify.typeId }" class="btnm labelm" target="_blank">${classify.description }</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>

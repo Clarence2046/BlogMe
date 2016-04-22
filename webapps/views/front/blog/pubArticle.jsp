@@ -222,7 +222,12 @@ label{
 					//-->
 					</script>
 					<tr>
-						<td><textarea name="content" style="width: 98%; height: 450px; visibility: hidden;"></textarea>
+						<td><textarea name="content" style="width: 98%; height: 450px; visibility: hidden;">
+						<c:if test="${mm[key1] eq 0}">
+						1
+						</c:if>
+							${mm[key1] eq 0?11:22}
+						</textarea>
 						<input type="hidden" name="blog.blogContent" id="blogc">
 						<input type="hidden" name="blog.contentWithNoHtml" id="cwnh">
 						<br>

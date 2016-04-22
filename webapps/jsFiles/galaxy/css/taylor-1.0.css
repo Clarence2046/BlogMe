@@ -229,6 +229,7 @@ a:HOVER {
 .nav ul li:HOVER {
 	
 	background-image: url("../images/navback1.png");
+	cursor: pointer;
 }
 
 .active{
