@@ -41,7 +41,7 @@ public class GalaxyHomeController extends Controller {
 			setAttr("articles", articles);
 			
 			//获取热门文章
-			conditions = " order by views desc";
+			conditions = " and type!=5  order by views desc";
 			List<Blog> hots = Blog.getArticles(conditions );
 			
 			setAttr("hotarticles", hots);

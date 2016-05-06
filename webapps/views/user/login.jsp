@@ -46,10 +46,9 @@
 
 <!-- <body style="background-color: #d3eae7"> -->
 <body >
-	<div style="background-image: url('images/back51.jpg');height: 100%;width: 100%;margin-top: 0;display: inline-block;">
+	<!-- <div style="background-image: url('images/back51.jpg');height: 100%;width: 100%;margin-top: 0;display: inline-block;"> -->
 	<!-- 	<div  style="height:80%; margin: 5% auto;background-image: url('images/back44.jpg');width: 60%"> -->
-	<div style="height: 70%; margin-left:45%;margin-top:5%;  width: 50%;background-image: url('images/logback.jpg') no-repeat;">
- 		<div style="display: inline-block;width: 20%;height: 100%;"></div>
+	<div style=" height: 290px; margin-left:500px;margin-top:166px;  width: 400px;float: left;border: 1px solid gray;background-color: gray;border-radius:0 25px 0 25px;box-shadow: 10px 10px 5px #888888; ">
 		<div style="display: inline-block;">
 			<form action="visitme/doLogin" method="post" id="frm">
 				<table class="table table-responsive"
@@ -94,7 +93,12 @@
 				</table>
 			</form>
 		</div>
+		
 	</div>
+	<div style="width: 2px;height: 100%;background-color: #9f9d9c;float: left;z-index:-200;">
 	</div>
+		<div style="width: 100%;height: 2px;background-color: #9f9d9c;float: left;margin-top: 456px;position: absolute;">
+	</div>
+	
 </body>
 </html>

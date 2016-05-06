@@ -262,7 +262,7 @@ function doGo(url){
 				</form>
 			</div>
 			<div class="title">分类标签</div>
-			<div style="min-height: 50px">
+			<div style="min-height: 150px;">
 				<c:forEach items="${classifies }" var="classify">
 					<c:choose>
 						<c:when test="${choosedType == classify.typeId}">
@@ -275,7 +275,7 @@ function doGo(url){
 				</c:forEach>
 			</div>
 			<div class="title">热门文章</div>
-			<div style="height: 249px">
+			<div style="min-height: 249px">
 				<c:forEach items="${hotarticles }" var="hotart" begin="0" end="7">
 					<a href="art_d?art=${hotart.blogId }" > ${hotart.blogTitle }</a>
 					<div class="sep_solid"></div>

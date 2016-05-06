@@ -21,8 +21,9 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <link href="jsFiles/galaxy/css/taylor-1.0.css" rel="stylesheet">
-
-<script type="text/javascript" src="jsFiles/jquery/jquery-2.2.0.min.js"></script>
+<!-- <link href="jsFiles/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="jsFiles/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<script type="text/javascript" src="jsFiles/jquery/jquery-2.2.0.min.js"></script> -->
 
 </head>
 
@@ -45,7 +46,8 @@
 					 作者：${article.user.username } 分类：${article.classify.description } &nbsp;&nbsp;${article.views }次查看</font>
 				</p>
 				<div style="border-bottom-style: dashed;border-bottom-width: thin;margin-top: 20px;border-bottom-color: #aaa;"></div>
-				<span style="clear: both;">${article.blogContent }</span>
+				
+				<div style="clear: both;">${article.blogContent }</div>
 			</div>
 			<div style="border-bottom-style: dashed;border-bottom-width: thin;margin-top: 20px;border-bottom-color: #aaa;"></div>
 			<div>上一篇:
@@ -92,14 +94,14 @@
 		</div>
 		<div class="right" style="width: 32%;margin-left: 15px">
 			<div class="title">分类标签</div>
-			<div style="min-height: 50px">
+			<div style="min-height: 150px;height: auto;">
 				<c:forEach items="${classifies }" var="classify">
 					<c:choose>
 						<c:when test="${classify.description == bread_third}">
-							<a href="http://www.baidu.com" class="btnm labelm active" target="_blank">${classify.description }</a>
+							<a href="${trueUrl }?tid=${classify.typeId }" class="btnm labelm active" target="_blank">${classify.description }</a>
 						</c:when>
 						<c:otherwise>
-							<a href="http://www.baidu.com" class="btnm labelm" target="_blank">${classify.description }</a>
+							<a href="${trueUrl }?tid=${classify.typeId }" class="btnm labelm" target="_blank">${classify.description }</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>

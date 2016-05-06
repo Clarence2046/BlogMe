@@ -228,12 +228,14 @@ a:HOVER {
 
 .nav ul li:HOVER {
 	
-	background-image: url("../images/navback1.png");
+	background-image: url("../images/tback1.png") ;
+	background-repeat:no-repeat;
 	cursor: pointer;
 }
 
 .active{
-	background-image: url("../images/navback1.png");
+	background-image: url("../images/tback1.png") ;
+	background-repeat:no-repeat;
 }
 
 .nav ul a {
@@ -274,3 +276,90 @@ ul,ol,li {
 	
 }
 
+pre {
+	overflow: auto;
+	font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+	display: block;
+	padding: 9.5px;
+	margin: 0 0 10px;
+	font-size: 13px;
+	line-height: 1.42857143;
+	color: #333;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	border-radius: 4px
+}
+
+pre code {
+	padding: 0;
+	font-size: inherit;
+	color: inherit;
+	white-space: pre-wrap;
+	background-color: transparent;
+	border-radius: 0
+}
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+@media print {
+	*,:after,:before {
+		color: #000 !important;
+		text-shadow: none !important;
+		background: 0 0 !important;
+		-webkit-box-shadow: none !important;
+		box-shadow: none !important
+	}
+	a,a:visited {
+		text-decoration: underline
+	}
+	a[href]:after {
+		content: " (" attr(href) ")"
+	}
+	abbr[title]:after {
+		content: " (" attr(title) ")"
+	}
+	a[href ^="javascript:"]:after,a[href ^="#"]:after {
+		content: ""
+	}
+	blockquote,pre {
+		border: 1px solid #999;
+		page-break-inside: avoid
+	}
+	thead {
+		display: table-header-group
+	}
+	img,tr {
+		page-break-inside: avoid
+	}
+	img {
+		max-width: 100% !important
+	}
+	h2,h3,p {
+		orphans: 3;
+		widows: 3
+	}
+	h2,h3 {
+		page-break-after: avoid
+	}
+	select {
+		background: #fff !important
+	}
+	.navbar {
+		display: none
+	}
+	.btn>.caret,.dropup>.btn>.caret {
+		border-top-color: #000 !important
+	}
+	.label {
+		border: 1px solid #000
+	}
+	.table {
+		border-collapse: collapse !important
+	}
+	.table td,.table th {
+		background-color: #fff !important
+	}
+	.table-bordered td,.table-bordered th {
+		border: 1px solid #ddd !important
+	}
+}

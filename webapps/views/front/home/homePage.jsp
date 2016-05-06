@@ -145,6 +145,7 @@ function activeNav(navItems){
 			</c:if>
 				<script type="text/javascript">
 				<!--
+				    var oldT = document.title;
 					var title = "";
 					if(${viewPage == 'home' }){
 						title = "主页_taylor的个人博客";
@@ -163,6 +164,10 @@ function activeNav(navItems){
 					}
 					
 					document.title = title;
+					if(${viewPage=='art_detail'}){
+						document.title = oldT;
+					}
+					
 				//-->
 				</script>
 			
