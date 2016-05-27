@@ -91,6 +91,7 @@ public class BlogMeConfig extends JFinalConfig {
 	public void configHandler(Handlers me) {
 		me.add(new UrlSkipHandler("/jsFiles", false));
 		me.add(new UrlSkipHandler("/images", false));
+		me.add(new UrlSkipHandler("/ws1", false));
 	}
 
 }

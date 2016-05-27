@@ -11,6 +11,7 @@ import com.galaxy.taylor.model.Classify;
 import com.galaxy.taylor.model.Comment;
 import com.galaxy.taylor.model.User;
 import com.galaxy.taylor.util.Constants;
+import com.galaxy.taylor.util.Html2PDF;
 import com.galaxy.taylor.util.StringUtil;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
@@ -268,10 +269,17 @@ public class GalaxyBlogController extends Controller {
 		
 		blog.save();
 
-		System.out.println(blog.getBlogTitle());
+		//System.out.println(blog.getBlogTitle());
 		//System.out.println(content);
 
 		// render("blog.jsp");
+		
+		String basepath = getSession().getServletContext().getRealPath("/temp");
+		
+		String blogContent = blog.getBlogContent();
+		Html2PDF.convertHtmlStr2PDF(blogContent, basepath+"/2.pdf",basepath);
+		
+		
 		redirect("/new_art");
 
 	}
